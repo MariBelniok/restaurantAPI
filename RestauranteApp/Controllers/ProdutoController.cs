@@ -1,0 +1,40 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using RestauranteRepositorios.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace RestauranteApp.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProdutoController : ControllerBase
+    {
+        private readonly IProdutoService _service;
+
+        public ProdutoController(IProdutoService service)
+        {
+            _service = service;
+        }
+        // GET: api/<ProdutoController>
+        [HttpGet("menu")]
+        public async Task<IActionResult> GetMenu()
+        {
+                var menuProdutos = await _service.ListarMenu();
+                return Ok(menuProdutos);
+        }
+
+        // GET api/<ProdutoController>/5
+        [HttpGet]
+        public async Task<IActionResult> GetProdutos()
+        {
+            
+                var menuProdutos = await _service.BuscarProdutoDisponivel();
+                return Ok(menuProdutos);
+            
+        }
+    }
+}

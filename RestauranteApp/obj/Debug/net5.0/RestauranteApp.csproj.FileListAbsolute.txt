@@ -1,0 +1,129 @@
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.csprojAssemblyReference.cache
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.AssemblyInfoInputs.cache
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.AssemblyInfo.cs
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.csproj.CoreCompileInputs.cache
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\appsettings.json
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.exe
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.deps.json
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.runtimeconfig.json
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.runtimeconfig.dev.json
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\ref\RestauranteApp.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.pdb
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Humanizer.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.Runtime.Caching.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteDominio.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteRepositorios.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteDominio.pdb
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteRepositorios.pdb
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\staticwebassets\RestauranteApp.StaticWebAssets.Manifest.cache
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\staticwebassets\RestauranteApp.StaticWebAssets.xml
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\scopedcss\bundle\RestauranteApp.styles.css
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.RazorTargetAssemblyInfo.cache
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.csproj.CopyComplete
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\ref\RestauranteApp.dll
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.pdb
+C:\Users\marianna.belniok\source\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.genruntimeconfig.cache
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\appsettings.json
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.exe
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.deps.json
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.runtimeconfig.json
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.runtimeconfig.dev.json
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\ref\RestauranteApp.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteApp.pdb
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Humanizer.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.Runtime.Caching.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteDominio.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteRepositorios.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteDominio.pdb
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\bin\Debug\net5.0\RestauranteRepositorios.pdb
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.csprojAssemblyReference.cache
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.AssemblyInfoInputs.cache
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.AssemblyInfo.cs
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.csproj.CoreCompileInputs.cache
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\staticwebassets\RestauranteApp.StaticWebAssets.Manifest.cache
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\staticwebassets\RestauranteApp.StaticWebAssets.xml
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\scopedcss\bundle\RestauranteApp.styles.css
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.RazorTargetAssemblyInfo.cache
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.csproj.CopyComplete
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\ref\RestauranteApp.dll
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.pdb
+C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteApp\obj\Debug\net5.0\RestauranteApp.genruntimeconfig.cache
