@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RestauranteRepositorios.Services.PedidoService
+namespace RestauranteRepositorios.Services
 {
     public interface IPedidoService
     {

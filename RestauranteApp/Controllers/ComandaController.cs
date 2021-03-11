@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestauranteRepositorios.Services;
 using RestauranteRepositorios.Services.ComandaService;
 using System;
 using System.Collections.Generic;
@@ -20,23 +21,26 @@ namespace RestauranteApp.Controllers
             _service = service;
         }
         // GET: api/<ComandaController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("{comandaAberta/id}")]
+        public async Task<ComandaModel> GetComandaAberta(int id)
         {
-            return new string[] { "value1", "value2" };
+            var comanda = await _service.BuscarComandaAberta(id);
+            return comanda;
         }
 
         // GET api/<ComandaController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{comandaPaga/id}")]
+        public async Task<ComandaFinalizadaModel> GetComandaFinalizada(int id)
         {
-            return "value";
+            var comanda = await _service.BuscarComandaPaga(id);
+            return comanda;
         }
 
         // POST api/<ComandaController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<AdicionarComandaModel> Post(AdicionarComandaModel model)
         {
+            var adicionarComanda = await _service.AdicionarComanda(model);
         }
 
         // PUT api/<ComandaController>/5

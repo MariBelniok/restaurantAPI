@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RestauranteRepositorios.Services.PedidoService
+namespace RestauranteRepositorios.Services
 {
 
     public class PedidoService : IPedidoService

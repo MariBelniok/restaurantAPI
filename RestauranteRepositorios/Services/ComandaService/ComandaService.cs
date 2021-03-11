@@ -4,6 +4,7 @@ using RestauranteRepositorios.Services.ServiceMesa;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace RestauranteRepositorios.Services.ComandaService
 {
@@ -79,43 +80,87 @@ namespace RestauranteRepositorios.Services.ComandaService
         public async Task<ComandaFinalizadaModel> BuscarComandaPaga(int comandaId)
         {
 
-            var comanda = _contexto.Comanda
-                        .Include(c => c.Pedidos)
+            var comanda = await _contexto.Comanda
                         .Where(c => c.ComandaId == comandaId)
-                        .Select(comanda => new ComandaFinalizadaModel
+                        .Include(c => c.Pedidos)
+                        .Select(comanda => new
                         {
-                            ComandaId = comanda.ComandaId,
-                            MesaId = comanda.MesaId,
-                            DataHoraEntrada = comanda.DataHoraEntrada,
-                            DataHoraSaida = (DateTime)comanda.DataHoraSaida,
-                            Valor = comanda.Valor,
-                            ComandaPaga = comanda.ComandaPaga,
-                            QtdePessoasMesa = comanda.QtdePessoasMesa
+                            comanda.ComandaId,
+                            comanda.MesaId,
+                            comanda.DataHoraEntrada,
+                            comanda.DataHoraSaida,
+                            comanda.Valor,
+                            comanda.ComandaPaga,
+                            comanda.QtdePessoasMesa,
+                            comanda.Pedidos
                         }).LastOrDefaultAsync();
+
+            var res = new ComandaFinalizadaModel
+            {
+                ComandaId = comanda.ComandaId,
+                MesaId = comanda.MesaId,
+                DataHoraEntrada = comanda.DataHoraEntrada,
+                DataHoraSaida = comanda.DataHoraSaida,
+                Valor = comanda.Valor,
+                ComandaPaga = comanda.ComandaPaga,
+                QtdePessoasMesa = comanda.QtdePessoasMesa,
+                Pedidos = (ICollection<BuscarPedidoModel>)comanda.Pedidos
+            };
+
+            res.Pedidos.Select(p => new BuscarPedidoModel
+            {
+                PedidoId = p.PedidoId,
+                ComandaId = p.ComandaId,
+                ProdutoId = p.ProdutoId,
+                QtdeProduto = p.QtdeProduto,
+                ValorPedido = p.ValorPedido,
+                StatusPedidoId = p.StatusPedidoId
+            }).ToList();
 
             _ = comanda ?? throw new Exception("Comanda inexistente!");
 
-            return await comanda;
+            return res;
         }
 
         public async Task<ComandaModel> BuscarComandaAberta(int comandaId)
         {
-             var comanda = _contexto.Comanda
-                        .Include(c => c.Pedidos)
+             var comanda = await _contexto.Comanda
                         .Where(c => c.ComandaId == comandaId)
-                        .Select(comanda => new ComandaModel
+                        .Include(c => c.Pedidos)
+                        .Select(comanda => new 
                         {
-                            ComandaId = comanda.ComandaId,
-                            MesaId = comanda.MesaId,
-                            DataHoraEntrada = comanda.DataHoraEntrada,
-                            Valor = comanda.Valor,
-                            ComandaPaga = comanda.ComandaPaga,
-                            QtdePessoasMesa = comanda.QtdePessoasMesa
+                            comanda.ComandaId,
+                            comanda.MesaId,
+                            comanda.DataHoraEntrada,
+                            comanda.Valor,
+                            comanda.ComandaPaga,
+                            comanda.QtdePessoasMesa,
+                            comanda.Pedidos
                         }).LastOrDefaultAsync();
+
+            var res = new ComandaModel
+            {
+                ComandaId = comanda.ComandaId,
+                MesaId = comanda.MesaId,
+                DataHoraEntrada = comanda.DataHoraEntrada,
+                Valor = comanda.Valor,
+                ComandaPaga = comanda.ComandaPaga,
+                QtdePessoasMesa = comanda.QtdePessoasMesa,
+                Pedidos = (ICollection<BuscarPedidoModel>)comanda.Pedidos
+            };
+
+            res.Pedidos.Select(p => new BuscarPedidoModel {
+                PedidoId = p.PedidoId,
+                ComandaId = p.ComandaId,
+                ProdutoId = p.ProdutoId,
+                QtdeProduto = p.QtdeProduto,
+                ValorPedido = p.ValorPedido,
+                StatusPedidoId = p.StatusPedidoId
+            }).ToList();
 
             _ = comanda ?? throw new Exception("Comanda inexistente!");
 
-            return await comanda;
+            return res;
         }
 
         //CALCULA O VALOR TOTAL DA COMANDA
