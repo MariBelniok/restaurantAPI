@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestauranteDominio;
 using RestauranteRepositorios.Services;
-using RestauranteRepositorios.Services.ComandaService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +14,14 @@ namespace RestauranteApp.Controllers
     [ApiController]
     public class ComandaController : ControllerBase
     {
-        private readonly IComandaService _service;
+        private readonly ComandaService _service;
 
-        public ComandaController(IComandaService service)
+        public ComandaController(ComandaService service)
         {
             _service = service;
         }
         // GET: api/<ComandaController>
-        [HttpGet("{comandaAberta/id}")]
+        [HttpGet("Aberta/{id}", Name = "Aberta")]
         public async Task<ComandaModel> GetComandaAberta(int id)
         {
             var comanda = await _service.BuscarComandaAberta(id);
@@ -29,7 +29,7 @@ namespace RestauranteApp.Controllers
         }
 
         // GET api/<ComandaController>/5
-        [HttpGet("{comandaPaga/id}")]
+        [HttpGet("Finalizada/{id}", Name = "Finalizada")]
         public async Task<ComandaFinalizadaModel> GetComandaFinalizada(int id)
         {
             var comanda = await _service.BuscarComandaPaga(id);
@@ -38,22 +38,22 @@ namespace RestauranteApp.Controllers
 
         // POST api/<ComandaController>
         [HttpPost]
-        public Task Post(AdicionarComandaModel model)
+        public async Task Post(AdicionarComandaModel model)
         {
-            return _service.AdicionarComanda(model);
+            await _service.AdicionarComanda(model);
         }
 
         // PUT api/<ComandaController>/5
-        [HttpPut("{pagarComanda/id}")]
-        public Task PutPagar(int mesaId)
+        [HttpPut("Pagar/{id}", Name = "Pagar")]
+        public Task PutPagar(int id)
         {
-            return _service.EncerrarComanda(mesaId);
-        } 
-        
-        [HttpPut("{cancelar/id}")]
-        public Task PutCancelar(int mesaId)
+            return _service.EncerrarComanda(id);
+        }
+
+        [HttpPut("Cancelar/{id}", Name = "Cancelar")]
+        public Task PutCancelar(int id)
         {
-            return _service.CancelarComanda(mesaId);
+            return _service.CancelarComanda(id);
         }
 
 

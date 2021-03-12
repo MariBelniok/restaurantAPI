@@ -10,9 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RestauranteRepositorios;
 using RestauranteRepositorios.Services;
-using RestauranteRepositorios.Services.ComandaService;
 using RestauranteRepositorios.Services.ServiceMesa;
-using RestauranteRepositorios.Services.PedidoService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,10 +34,18 @@ namespace RestauranteApp
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddScoped<IComandaService, ComandaService>();
-            services.AddScoped<IPedidoService, PedidoService>();
-            services.AddScoped<IProdutoService, ProdutoService>();
-            services.AddScoped<IMesaService, MesaService>();
+            services.AddScoped<ComandaService, ComandaService>();
+            services.AddScoped<PedidoService, PedidoService>();
+            services.AddScoped<ProdutoService, ProdutoService>();
+            services.AddScoped<MesaService, MesaService>();
+
+            RestauranteContexto contexto = new RestauranteContexto();
+            MesaService mesaService = new MesaService(contexto);
+            ProdutoService produtoService = new ProdutoService(contexto);
+            PedidoService pedidoService = new PedidoService(contexto, produtoService);
+            ComandaService comandaService = new ComandaService(contexto, mesaService, pedidoService);
+            
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

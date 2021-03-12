@@ -13,9 +13,9 @@ namespace RestauranteApp.Controllers
     [ApiController]
     public class ProdutoController : ControllerBase
     {
-        private readonly IProdutoService _service;
+        private readonly ProdutoService _service;
 
-        public ProdutoController(IProdutoService service)
+        public ProdutoController(ProdutoService service)
         {
             _service = service;
         }

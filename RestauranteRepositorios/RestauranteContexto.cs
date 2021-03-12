@@ -5,6 +5,10 @@ namespace RestauranteRepositorios
 {
     public class RestauranteContexto : DbContext
     {
+        public RestauranteContexto()
+        {
+        }
+
         public RestauranteContexto(DbContextOptions<RestauranteContexto> options) : base(options) { }
 
         public DbSet<Comanda> Comanda { get; set; }

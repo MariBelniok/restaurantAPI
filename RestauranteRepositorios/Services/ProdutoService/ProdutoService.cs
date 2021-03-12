@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestauranteRepositorios.Services
 { 
-    public class ProdutoService : IProdutoService
+    public class ProdutoService
     {
         private readonly RestauranteContexto _contexto;
 
@@ -44,6 +44,21 @@ namespace RestauranteRepositorios.Services
                 .ToListAsync();
 
             return await produtos;
+        }
+
+        public async Task<ListarProdutosModel> ObterProduto(int produtoId)
+        {
+            var produto = await _contexto.Produto
+                        .Where(p => p.ProdutoId == produtoId)
+                        .Select(p => new ListarProdutosModel()
+                        {
+                            ProdutoId = p.ProdutoId,
+                            NomeProduto = p.NomeProduto,
+                            ValorProduto = p.ValorProduto,
+                            QtdePermitida = p.QtdePermitida
+                        })
+                        .FirstOrDefaultAsync();
+            return produto;
         }
     }
 }

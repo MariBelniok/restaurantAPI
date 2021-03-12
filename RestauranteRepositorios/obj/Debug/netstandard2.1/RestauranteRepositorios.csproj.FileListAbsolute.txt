@@ -22,3 +22,15 @@ C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\Resta
 C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteRepositorios\bin\Debug\netstandard2.1\RestauranteDominio.dll
 C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteRepositorios\bin\Debug\netstandard2.1\RestauranteDominio.pdb
 C:\Users\marianna.belniok\Downloads\New Text Document\repos\RestauranteApp\RestauranteRepositorios\obj\Debug\netstandard2.1\RestauranteRepositorios.csproj.CopyComplete
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\bin\Debug\netstandard2.1\RestauranteRepositorios.deps.json
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\bin\Debug\netstandard2.1\RestauranteRepositorios.dll
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\bin\Debug\netstandard2.1\RestauranteRepositorios.pdb
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\bin\Debug\netstandard2.1\RestauranteDominio.dll
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\bin\Debug\netstandard2.1\RestauranteDominio.pdb
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\obj\Debug\netstandard2.1\RestauranteRepositorios.csprojAssemblyReference.cache
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\obj\Debug\netstandard2.1\RestauranteRepositorios.AssemblyInfoInputs.cache
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\obj\Debug\netstandard2.1\RestauranteRepositorios.AssemblyInfo.cs
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\obj\Debug\netstandard2.1\RestauranteRepositorios.csproj.CoreCompileInputs.cache
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\obj\Debug\netstandard2.1\RestauranteRepositorios.csproj.CopyComplete
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\obj\Debug\netstandard2.1\RestauranteRepositorios.dll
+C:\Users\marianna.belniok\Desktop\restaurantAPI\RestauranteRepositorios\obj\Debug\netstandard2.1\RestauranteRepositorios.pdb

@@ -9,47 +9,84 @@ using System.Threading.Tasks;
 
 namespace RestauranteRepositorios.Services
 {
-    public class PedidoService : IPedidoService
+    public class PedidoService
     {
         private readonly RestauranteContexto _contexto;
+        private readonly ProdutoService _produtoService;
 
-        public PedidoService(RestauranteContexto contexto)
+        public PedidoService(RestauranteContexto contexto, ProdutoService produtoService)
         {
             _contexto = contexto;
+            _produtoService = produtoService;
         }
 
-        //ADICIONA PEDIDOS EM MODEL AUXILIAR
-        public async Task AdicionarPedido(AdicionarPedidoModel model)
+        //ADICIONA PEDIDOS
+        public async Task AdicionarPedido(AdicionarPedidoModel model, int comandaId)
         {
-            if(!QtdeValida(model.ProdutoId, model.QtdeProduto, model.ComandaId))
+            var produto = await _produtoService.ObterProduto(model.ProdutoId);
+            _ = produto ?? throw new Exception("Produto inexistente");
+            var valorTotalPedido = produto.ValorProduto * model.QtdeProduto;
+
+            
+
+            if (model.ProdutoId == 1)
+                throw new Exception("Esse produto é inválido.");
+
+            if (QtdeValida(model.ProdutoId, model.QtdeProduto, model.ComandaId) == false)
                 throw new Exception("Quantidade de items escolhido esta acima do permitido! ");
 
             var pedido = new Pedido()
             {
-                ComandaId = model.ComandaId,
                 ProdutoId = model.ProdutoId,
+                ComandaId = comandaId,
                 QtdeProduto = model.QtdeProduto,
-                ValorPedido = model.ValorPedido,
+                ValorPedido = valorTotalPedido,
                 StatusPedidoId = (int)StatusPedidoEnum.Realizado
             };
+
+            var comandaValor = _contexto.Comanda
+                        .Where(c => c.ComandaId == comandaId)
+                        .Select(c => c.Valor).FirstOrDefault();
+            comandaValor += valorTotalPedido;
 
             _contexto.Add(pedido);
             await _contexto.SaveChangesAsync();
         }
 
+        //ADICIONA RODIZIO AO INICIAR COMANDA
+        public async Task AdicionarRodizio(int comandaId, int qtdePessoas)
+        {
+
+            var rodizio = new Pedido()
+            {
+                ComandaId = comandaId,
+                ProdutoId = 1,
+                QtdeProduto = qtdePessoas,
+                ValorPedido = ValorTotalPedido(1, qtdePessoas),
+                StatusPedidoId = (int)StatusPedidoEnum.Realizado
+            };
+
+            var comanda = _contexto.Comanda
+                        .Where(c => c.ComandaId == comandaId);
+
+            _contexto.Add(rodizio);
+            await _contexto.SaveChangesAsync();
+        }
+
+
         //ATUALIZA UM PRODUTO
-        public async Task AtualizarPedido(int pedidoId, int comandaId, int quantidadeItem)
+        public async Task AtualizarPedido(int comandaId, int pedidoId, int quantidadeItem)
         {        
             var pedido = _contexto.Pedido
                     .Where(ped => ped.PedidoId == pedidoId && ped.ComandaId == comandaId)
+                    .OrderBy(p => p.PedidoId)
                     .LastOrDefault();
 
             _ = pedido ?? throw new Exception("Pedido inexistente");
 
             if (!QtdeValida(pedido.ProdutoId, quantidadeItem, comandaId))
-            {
                 throw new Exception("Quantidade de items escolhido esta acima do permitido! ");
-            }
+            
 
             pedido.QtdeProduto = quantidadeItem;
             pedido.ValorPedido = ValorTotalPedido(pedido.ProdutoId, quantidadeItem);
@@ -58,18 +95,20 @@ namespace RestauranteRepositorios.Services
         }
 
         //REMOVE UM PRODUTO
-        public async Task RemoverPedido(int pedidoId, int comandaId)
+        public async Task RemoverPedido(int comandaId, int pedidoId)
         {
             if(pedidoId == 1)
                 throw new Exception("O rodizio não pode ser cancelado da sua comanda!");
             
             var pedido = _contexto.Pedido
                         .Where(ped => ped.PedidoId == pedidoId && ped.ComandaId == comandaId)
+                        .OrderBy(p => p.PedidoId)
                         .LastOrDefault();
 
             _ = pedido ?? throw new Exception("Pedido inexistente");
 
             pedido.StatusPedidoId = (int)StatusPedidoEnum.Cancelado;
+
             await _contexto.SaveChangesAsync();
         }
 
@@ -86,7 +125,7 @@ namespace RestauranteRepositorios.Services
                     ComandaId = p.ComandaId,
                     QtdeProduto = p.QtdeProduto,
                     ValorPedido = p.ValorPedido,
-                    StatusPedidoId = (StatusPedidoEnum)p.StatusPedidoId
+                    StatusPedidoId = p.StatusPedidoId
                 }).ToListAsync();
 
             _ = pedidos ?? throw new Exception("Pedidos inexistentes");
@@ -102,6 +141,7 @@ namespace RestauranteRepositorios.Services
                     .Sum(p => p.ValorProduto * quantidade);
         }
 
+        //CALCULA A QUANTIDADE VALIDA DE ITEM POR PEDIDO
         public bool QtdeValida(int prodId, int qtdeEscolhida, int comandaId)
         {
             int pessoasMesa = _contexto.Comanda
@@ -110,10 +150,11 @@ namespace RestauranteRepositorios.Services
             int qtdePermitida = _contexto.Produto
                         .Where(p => p.ProdutoId == prodId)
                         .Select(p => p.QtdePermitida).FirstOrDefault();
-            if(qtdePermitida * pessoasMesa > qtdeEscolhida)
+            if(qtdeEscolhida > (qtdePermitida * pessoasMesa))
             {
                 return false;
             }
+
             return true;
         }
     }

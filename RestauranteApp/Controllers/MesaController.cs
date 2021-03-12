@@ -13,9 +13,9 @@ namespace RestauranteApp.Controllers
     [ApiController]
     public class MesaController : ControllerBase
     {
-        private readonly IMesaService _service;
+        private readonly MesaService _service;
 
-        public MesaController(IMesaService service)
+        public MesaController(MesaService service)
         {
             _service = service;
         }
@@ -29,16 +29,16 @@ namespace RestauranteApp.Controllers
         }
 
         // PUT api/<MesaController>/5
-        [HttpPut("{ocuparMesa/id}")]
-        public Task PutOcupar(int mesaId)
+        [HttpPut("Ocupar/{id}")]
+        public async Task PutOcupar(int id)
         {
-            return _service.OcuparMesa(mesaId);
+           await _service.OcuparMesa(id);
         }
         
-        [HttpDelete("{desocuparMesa/id}")]
-        public Task PutDesocupar(int mesaId)
+        [HttpPut("Desocupar/{id}")]
+        public async Task PutDesocupar(int id)
         {
-            return _service.DesocuparMesa(mesaId);
+            await _service.DesocuparMesa(id);
         }
     }
 }

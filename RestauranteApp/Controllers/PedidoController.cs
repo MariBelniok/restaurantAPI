@@ -14,21 +14,15 @@ namespace RestauranteApp.Controllers
     [ApiController]
     public class PedidoController : ControllerBase
     {
-        private readonly IPedidoService _service;
+        private readonly PedidoService _service;
 
-        public PedidoController(IPedidoService service)
+        public PedidoController(PedidoService service)
         {
             _service = service;
         }
-        // GET: api/<PedidoController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
         // GET api/<PedidoController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{comandaId}")]
         public async Task<List<BuscarPedidoModel>> Get(int comandaId)
         {
             var pedidos = _service.BuscarPedidos(comandaId);
@@ -36,24 +30,24 @@ namespace RestauranteApp.Controllers
         }
 
         // POST api/<PedidoController>
-        [HttpPost]
-        public Task Post(AdicionarPedidoModel model)
+        [HttpPost("{comandaId}")]
+        public Task Post(AdicionarPedidoModel model, int comandaId)
         {
-            return _service.AdicionarPedido(model);
+            return _service.AdicionarPedido(model, comandaId);
         }
 
         // PUT api/<PedidoController>/5
-        [HttpPut("{atualizar/id}")]
-        public Task PutAtualizar(int pedidoId, int comandaId, int quantidadeItem)
+        [HttpPut("Atualizar/{comandaId}/{pedidoId}")]
+        public Task PutAtualizar(int comandaId, int pedidoId, int quantidadeItem)
         {
-            return _service.AtualizarPedido(pedidoId, comandaId, quantidadeItem);
+            return _service.AtualizarPedido(comandaId, pedidoId, quantidadeItem);
         }
 
-        // DELETE api/<PedidoController>/5
-        [HttpDelete("{cancelar/id}")]
-        public Task PutDelete(int pedidoId, int comandaId)
+        // PUT api/<PedidoController>/5
+        [HttpPut("Cancelar/{comandaId}/{pedidoId}")]
+        public Task PutDelete(int comandaId, int pedidoId)
         {
-            return _service.RemoverPedido(pedidoId, comandaId);
+            return _service.RemoverPedido(comandaId, pedidoId);
         }
     }
 }

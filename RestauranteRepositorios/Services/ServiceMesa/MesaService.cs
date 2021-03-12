@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RestauranteRepositorios.Services.ServiceMesa
 {
-    public class MesaService : IMesaService
+    public class MesaService
     {
         private readonly RestauranteContexto _contexto;
 
@@ -30,10 +30,11 @@ namespace RestauranteRepositorios.Services.ServiceMesa
 
 
             mesa.MesaOcupada = true;
+
             await _contexto.SaveChangesAsync();
         }
 
-        //MUDA MESAOCUPADA PARA FALSE
+        //MUDA MESOCUPADA PARA FALSE
         public async Task DesocuparMesa(int mesaId)
         {
             var mesa = _contexto.Mesa
@@ -46,7 +47,7 @@ namespace RestauranteRepositorios.Services.ServiceMesa
                 throw new Exception("Mesa invalida ou desocupada, escolha a mesa correta! ");
             
             mesa.MesaOcupada = false;
-            
+
             await _contexto.SaveChangesAsync();
         }
 
