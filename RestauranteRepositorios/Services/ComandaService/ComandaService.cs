@@ -90,6 +90,9 @@ namespace RestauranteRepositorios.Services
             var comanda = await _contexto.Comanda
                         .Where(c => c.ComandaId == comandaId)
                         .Include(c => c.Pedidos)
+                        .ThenInclude(p => p.StatusPedido)
+                        .Include(c => c.Pedidos)
+                        .ThenInclude(p => p.Produto)
                         .Select(comanda => new
                         {
                             comanda.ComandaId,
@@ -117,6 +120,13 @@ namespace RestauranteRepositorios.Services
             {
                 PedidoId = p.PedidoId,
                 ProdutoId = p.ProdutoId,
+                Produto = new ListarProdutosModel
+                {
+                    ProdutoId = p.ProdutoId,
+                    NomeProduto = p.Produto.NomeProduto,
+                    ValorProduto = p.Produto.ValorProduto,
+                    QtdePermitida = p.Produto.QtdePermitida,
+                },
                 ComandaId = p.ComandaId,
                 QtdeProduto = p.QtdeProduto,
                 ValorPedido = p.ValorPedido,
