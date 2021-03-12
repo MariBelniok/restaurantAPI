@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestauranteDominio;
-using RestauranteRepositorios.Services.PedidoService;
+using RestauranteRepositorios.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,29 +29,31 @@ namespace RestauranteApp.Controllers
 
         // GET api/<PedidoController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<List<BuscarPedidoModel>> Get(int comandaId)
         {
-            return "value";
+            var pedidos = _service.BuscarPedidos(comandaId);
+            return await pedidos;
         }
 
         // POST api/<PedidoController>
         [HttpPost]
-        public async Task<IActionResult> Post(Pedido model)
+        public Task Post(AdicionarPedidoModel model)
         {
-            var pedidos = await _service.BuscarPedidos(model.ComandaId);
-            return Ok(pedidos);
+            return _service.AdicionarPedido(model);
         }
 
         // PUT api/<PedidoController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{atualizar/id}")]
+        public Task PutAtualizar(int pedidoId, int comandaId, int quantidadeItem)
         {
+            return _service.AtualizarPedido(pedidoId, comandaId, quantidadeItem);
         }
 
         // DELETE api/<PedidoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{cancelar/id}")]
+        public Task PutDelete(int pedidoId, int comandaId)
         {
+            return _service.RemoverPedido(pedidoId, comandaId);
         }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bBH5Boz8H1Mfx4x6iQPSp/h/gXRmeX8okwqlNKFpphhPKLWFBLNUbT+MJfRXgfiVQxLIk/NfRQtxHYlTTHSotw==",
+  "dgSpecHash": "feYesBr0RWa++8NqORFddWvaCCSC9VOMjkbjF2Rvuqn5kuU66OV2ECErQ3Sz2szApx6178qyInjYXTaK905oyA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteRepositorios\\RestauranteRepositorios.csproj",
+  "projectFilePath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteRepositorios\\RestauranteRepositorios.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marianna.belniok\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\marianna.belniok\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

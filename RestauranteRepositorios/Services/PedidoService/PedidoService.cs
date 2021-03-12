@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace RestauranteRepositorios.Services
 {
-
     public class PedidoService : IPedidoService
     {
         private readonly RestauranteContexto _contexto;
@@ -20,7 +19,7 @@ namespace RestauranteRepositorios.Services
         }
 
         //ADICIONA PEDIDOS EM MODEL AUXILIAR
-        public void AdicionarPedido(AdicionarPedidoModel model)
+        public async Task AdicionarPedido(AdicionarPedidoModel model)
         {
             if(!QtdeValida(model.ProdutoId, model.QtdeProduto, model.ComandaId))
                 throw new Exception("Quantidade de items escolhido esta acima do permitido! ");
@@ -35,11 +34,11 @@ namespace RestauranteRepositorios.Services
             };
 
             _contexto.Add(pedido);
-            _contexto.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
         }
 
         //ATUALIZA UM PRODUTO
-        public void AtualizarPedido(int pedidoId, int comandaId, int quantidadeItem)
+        public async Task AtualizarPedido(int pedidoId, int comandaId, int quantidadeItem)
         {        
             var pedido = _contexto.Pedido
                     .Where(ped => ped.PedidoId == pedidoId && ped.ComandaId == comandaId)
@@ -55,10 +54,11 @@ namespace RestauranteRepositorios.Services
             pedido.QtdeProduto = quantidadeItem;
             pedido.ValorPedido = ValorTotalPedido(pedido.ProdutoId, quantidadeItem);
 
-            _contexto.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
         }
+
         //REMOVE UM PRODUTO
-        public void RemoverPedido(int pedidoId, int comandaId)
+        public async Task RemoverPedido(int pedidoId, int comandaId)
         {
             if(pedidoId == 1)
                 throw new Exception("O rodizio não pode ser cancelado da sua comanda!");
@@ -70,7 +70,7 @@ namespace RestauranteRepositorios.Services
             _ = pedido ?? throw new Exception("Pedido inexistente");
 
             pedido.StatusPedidoId = (int)StatusPedidoEnum.Cancelado;
-            _contexto.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
         }
 
         //LISTA OS PEDIDOS REALIZADOS

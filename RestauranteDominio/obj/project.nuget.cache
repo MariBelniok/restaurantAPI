@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cZypmu5dVH2IzHcRpzLn5fK7V5iD47ExJNvnN8cw5srjdWvUVHH0lMle7Yqy+6+JIPDO7aL5HGvNe5yAHRQwMg==",
+  "dgSpecHash": "USDj2mxeDEgnmePnCXHyLgkiNgZJjYSfOXhx93bFl+AsK+9raZ/LOOtDeikNDK+Oxp0Rg7Ujdcu7u5Ngi05xAg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteDominio\\RestauranteDominio.csproj",
+  "projectFilePath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteDominio\\RestauranteDominio.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marianna.belniok\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\marianna.belniok\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",

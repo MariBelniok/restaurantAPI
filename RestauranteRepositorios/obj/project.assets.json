@@ -7271,11 +7271,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteRepositorios\\RestauranteRepositorios.csproj",
+      "projectUniqueName": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteRepositorios\\RestauranteRepositorios.csproj",
       "projectName": "RestauranteRepositorios",
-      "projectPath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteRepositorios\\RestauranteRepositorios.csproj",
+      "projectPath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteRepositorios\\RestauranteRepositorios.csproj",
       "packagesPath": "C:\\Users\\marianna.belniok\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteRepositorios\\obj\\",
+      "outputPath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteRepositorios\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\marianna.belniok\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7292,8 +7292,8 @@
         "netstandard2.1": {
           "targetAlias": "netstandard2.1",
           "projectReferences": {
-            "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteDominio\\RestauranteDominio.csproj": {
-              "projectPath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteDominio\\RestauranteDominio.csproj"
+            "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteDominio\\RestauranteDominio.csproj": {
+              "projectPath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteDominio\\RestauranteDominio.csproj"
             }
           }
         }

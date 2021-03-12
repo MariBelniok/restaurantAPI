@@ -285,11 +285,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteDominio\\RestauranteDominio.csproj",
+      "projectUniqueName": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteDominio\\RestauranteDominio.csproj",
       "projectName": "RestauranteDominio",
-      "projectPath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteDominio\\RestauranteDominio.csproj",
+      "projectPath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteDominio\\RestauranteDominio.csproj",
       "packagesPath": "C:\\Users\\marianna.belniok\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteDominio\\obj\\",
+      "outputPath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteDominio\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\marianna.belniok\\AppData\\Roaming\\NuGet\\NuGet.Config",

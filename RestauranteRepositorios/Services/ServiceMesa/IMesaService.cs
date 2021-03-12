@@ -6,8 +6,8 @@ namespace RestauranteRepositorios.Services.ServiceMesa
 {
     public interface IMesaService
     {
-        void OcuparMesa(int mesaId);
-        void DesocuparMesa(int mesaId);
+        Task OcuparMesa(int mesaId);
+        Task DesocuparMesa(int mesaId);
         Task<List<int>> BuscarMesasDisponiveis();
     }
 }

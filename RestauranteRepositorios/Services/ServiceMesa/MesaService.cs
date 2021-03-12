@@ -17,7 +17,7 @@ namespace RestauranteRepositorios.Services.ServiceMesa
         }
 
         //MUDA MESAOCUPADA PARA TRUE
-        public void OcuparMesa(int mesaId)
+        public async Task OcuparMesa(int mesaId)
         {
             var mesa = _contexto.Mesa
                         .Where(m => m.MesaId == mesaId && m.MesaOcupada == false)
@@ -30,11 +30,11 @@ namespace RestauranteRepositorios.Services.ServiceMesa
 
 
             mesa.MesaOcupada = true;
-            _contexto.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
         }
 
         //MUDA MESAOCUPADA PARA FALSE
-        public void DesocuparMesa(int mesaId)
+        public async Task DesocuparMesa(int mesaId)
         {
             var mesa = _contexto.Mesa
                     .Where(m => m.MesaId == mesaId && m.MesaOcupada == true)
@@ -47,7 +47,7 @@ namespace RestauranteRepositorios.Services.ServiceMesa
             
             mesa.MesaOcupada = false;
             
-            _contexto.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
         }
 
         //LISTA AS MESAS DISPONIVEIS

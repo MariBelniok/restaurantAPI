@@ -19,37 +19,26 @@ namespace RestauranteApp.Controllers
         {
             _service = service;
         }
+
         // GET: api/<MesaController>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public Task Get()
         {
-            var mesas = await _service.BuscarMesasDisponiveis();
-            return Ok(mesas);
-        }
-
-        // GET api/<MesaController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<MesaController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
+            var mesas = _service.BuscarMesasDisponiveis();
+            return mesas;
         }
 
         // PUT api/<MesaController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{ocuparMesa/id}")]
+        public Task PutOcupar(int mesaId)
         {
+            return _service.OcuparMesa(mesaId);
         }
-
-        // DELETE api/<MesaController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        
+        [HttpDelete("{desocuparMesa/id}")]
+        public Task PutDesocupar(int mesaId)
         {
+            return _service.DesocuparMesa(mesaId);
         }
     }
 }

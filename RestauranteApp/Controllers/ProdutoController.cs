@@ -19,22 +19,21 @@ namespace RestauranteApp.Controllers
         {
             _service = service;
         }
+
         // GET: api/<ProdutoController>
         [HttpGet("menu")]
-        public async Task<IActionResult> GetMenu()
+        public async Task<List<ListarProdutosModel>> GetMenu()
         {
-                var menuProdutos = await _service.ListarMenu();
-                return Ok(menuProdutos);
+            var menuProdutos = await _service.ListarMenu();
+            return menuProdutos;
         }
 
         // GET api/<ProdutoController>/5
         [HttpGet]
-        public async Task<IActionResult> GetProdutos()
+        public async Task<List<ListarProdutosModel>> GetProdutos()
         {
-            
-                var menuProdutos = await _service.BuscarProdutoDisponivel();
-                return Ok(menuProdutos);
-            
+            var menuProdutos = await _service.BuscarProdutoDisponivel();
+            return menuProdutos;
         }
     }
 }

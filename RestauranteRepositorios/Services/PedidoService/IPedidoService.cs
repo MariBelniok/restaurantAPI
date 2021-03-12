@@ -8,9 +8,9 @@ namespace RestauranteRepositorios.Services
 {
     public interface IPedidoService
     {
-        void AdicionarPedido(AdicionarPedidoModel model);
-        void AtualizarPedido(int pedidoId, int comandaId, int quantidadeItem);
-        void RemoverPedido(int pedidoId, int comandaId);
+        Task AdicionarPedido(AdicionarPedidoModel model);
+        Task AtualizarPedido(int pedidoId, int comandaId, int quantidadeItem);
+        Task RemoverPedido(int pedidoId, int comandaId);
         Task<List<BuscarPedidoModel>> BuscarPedidos(int comandaId);
         double ValorTotalPedido(int prodId, int quantidade);
         bool QtdeValida(int prodId, int qtdeEscolhida, int comandaId);

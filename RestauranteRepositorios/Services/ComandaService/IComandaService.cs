@@ -7,9 +7,9 @@ namespace RestauranteRepositorios.Services.ComandaService
 {
     public interface IComandaService
     {
-        void AdicionarComanda(AdicionarComandaModel model);
-        void EncerrarComanda(int mesaId);
-        void CancelarComanda(int mesaId);
+        Task AdicionarComanda(AdicionarComandaModel model);
+        Task EncerrarComanda(int mesaId);
+        Task CancelarComanda(int mesaId);
         Task<ComandaFinalizadaModel> BuscarComandaPaga(int comandaId);
         Task<ComandaModel> BuscarComandaAberta(int comandaId);
         double ValorTotalComanda(int comandaId);

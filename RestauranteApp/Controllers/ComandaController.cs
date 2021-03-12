@@ -38,21 +38,24 @@ namespace RestauranteApp.Controllers
 
         // POST api/<ComandaController>
         [HttpPost]
-        public async Task<AdicionarComandaModel> Post(AdicionarComandaModel model)
+        public Task Post(AdicionarComandaModel model)
         {
-            var adicionarComanda = await _service.AdicionarComanda(model);
+            return _service.AdicionarComanda(model);
         }
 
         // PUT api/<ComandaController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{pagarComanda/id}")]
+        public Task PutPagar(int mesaId)
         {
+            return _service.EncerrarComanda(mesaId);
+        } 
+        
+        [HttpPut("{cancelar/id}")]
+        public Task PutCancelar(int mesaId)
+        {
+            return _service.CancelarComanda(mesaId);
         }
 
-        // DELETE api/<ComandaController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
     }
 }

@@ -23,7 +23,7 @@ namespace RestauranteRepositorios.Services.ComandaService
             _mesaService = mesaService;
         }
 
-        public void AdicionarComanda(AdicionarComandaModel model)
+        public async Task AdicionarComanda(AdicionarComandaModel model)
         {
             var comanda = new AdicionarComandaModel()
             {
@@ -35,13 +35,13 @@ namespace RestauranteRepositorios.Services.ComandaService
             };
 
             _contexto.Add(comanda);
-            _contexto.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
 
             _mesaService.OcuparMesa(comanda.MesaId);
         }
 
         //ENCERRA E PAGA COMANDA
-        public void EncerrarComanda(int mesaId)
+        public async Task EncerrarComanda(int mesaId)
         {
             var comanda = _contexto.Comanda
                         .Where(c => c.MesaId == mesaId && c.ComandaPaga == false)
@@ -53,25 +53,24 @@ namespace RestauranteRepositorios.Services.ComandaService
             comanda.Valor = ValorTotalComanda(comanda.ComandaId);
             comanda.ComandaPaga = true;
 
-            _contexto.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
 
             _mesaService.DesocuparMesa(comanda.MesaId);
         }
 
         //CANCELA COMANDA
-        public void CancelarComanda(int mesaId)
+        public async Task CancelarComanda(int mesaId)
         {
             var comanda = _contexto.Comanda
                         .Where(c => c.MesaId == mesaId && c.ComandaPaga == false)
                         .LastOrDefault();
 
             _ = comanda ?? throw new Exception("Comanda inexistente!");
-
             comanda.DataHoraSaida = DateTime.Now;
             comanda.Valor = 0;
             comanda.ComandaPaga = true;
 
-            _contexto.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
 
             _mesaService.DesocuparMesa(comanda.MesaId);
         }

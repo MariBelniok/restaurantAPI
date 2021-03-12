@@ -6026,11 +6026,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteApp\\RestauranteApp.csproj",
+      "projectUniqueName": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteApp\\RestauranteApp.csproj",
       "projectName": "RestauranteApp",
-      "projectPath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteApp\\RestauranteApp.csproj",
+      "projectPath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteApp\\RestauranteApp.csproj",
       "packagesPath": "C:\\Users\\marianna.belniok\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteApp\\obj\\",
+      "outputPath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\marianna.belniok\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6047,11 +6047,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteDominio\\RestauranteDominio.csproj": {
-              "projectPath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteDominio\\RestauranteDominio.csproj"
+            "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteDominio\\RestauranteDominio.csproj": {
+              "projectPath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteDominio\\RestauranteDominio.csproj"
             },
-            "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteRepositorios\\RestauranteRepositorios.csproj": {
-              "projectPath": "C:\\Users\\marianna.belniok\\Downloads\\New Text Document\\repos\\RestauranteApp\\RestauranteRepositorios\\RestauranteRepositorios.csproj"
+            "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteRepositorios\\RestauranteRepositorios.csproj": {
+              "projectPath": "C:\\Users\\marianna.belniok\\Desktop\\restaurantAPI\\RestauranteRepositorios\\RestauranteRepositorios.csproj"
             }
           }
         }
