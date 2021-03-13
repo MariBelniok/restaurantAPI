@@ -208,7 +208,7 @@ namespace RestauranteRepositorios.Services
         public async Task AtualizarValorComanda(int comandaId)
         {
             var pedidos = _contexto.Pedido
-                        .Where(p => p.ComandaId == comandaId)
+                        .Where(p => p.ComandaId == comandaId && p.StatusPedidoId == (int)StatusPedidoEnum.Realizado && p.ValorPedido > 0)
                         .Select(p => p.ValorPedido)
                         .Sum();
 

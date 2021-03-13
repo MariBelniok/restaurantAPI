@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestauranteDominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,6 +28,8 @@ namespace RestauranteRepositorios.Services
                 })
                 .ToListAsync();
 
+            _ = produtos ?? throw new Exception("Produtos inexistentes");
+
             return await produtos;
         }
         public async Task<List<ListarProdutosModel>> ListarMenu()
@@ -42,6 +44,8 @@ namespace RestauranteRepositorios.Services
                     QtdePermitida = a.QtdePermitida
                 })
                 .ToListAsync();
+
+            _ = produtos ?? throw new Exception("Produtos inexistentes");
 
             return await produtos;
         }
@@ -58,6 +62,9 @@ namespace RestauranteRepositorios.Services
                             QtdePermitida = p.QtdePermitida
                         })
                         .FirstOrDefaultAsync();
+
+            _ = produto ?? throw new Exception("Produtos inexistentes");
+
             return produto;
         }
     }

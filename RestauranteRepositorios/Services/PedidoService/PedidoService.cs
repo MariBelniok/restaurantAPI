@@ -48,7 +48,8 @@ namespace RestauranteRepositorios.Services
 
             await _contexto.SaveChangesAsync();
 
-            await _comandaService.AtualizarValorComanda(comandaId);
+            if(pedido.ValorPedido > 0)
+                await _comandaService.AtualizarValorComanda(comandaId);
         }
 
         //ATUALIZA UM PRODUTO
@@ -77,7 +78,8 @@ namespace RestauranteRepositorios.Services
 
             await _contexto.SaveChangesAsync();
 
-            await _comandaService.AtualizarValorComanda(comandaId);
+            if (pedido.ValorPedido > 0)
+                await _comandaService.AtualizarValorComanda(comandaId);
         }
 
         //REMOVE UM PRODUTO
@@ -98,7 +100,8 @@ namespace RestauranteRepositorios.Services
 
             await _contexto.SaveChangesAsync();
 
-            await _comandaService.AtualizarValorComanda(comandaId);
+            if (pedido.ValorPedido > 0)
+                await _comandaService.AtualizarValorComanda(comandaId);
         }
 
         //LISTA OS PEDIDOS REALIZADOS
