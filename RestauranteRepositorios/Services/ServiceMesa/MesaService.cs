@@ -23,11 +23,7 @@ namespace RestauranteRepositorios.Services.ServiceMesa
                         .Where(m => m.MesaId == mesaId && m.MesaOcupada == false)
                         .FirstOrDefault();
 
-            _ = mesa ?? throw new Exception("Mesa inexistente");
-
-            if(mesa.MesaId == mesaId && mesa.MesaOcupada == true)
-                throw new Exception("Mesa encontra-se ocupada!");
-
+            _ = mesa ?? throw new Exception("Mesa inexistente ou ocupada");
 
             mesa.MesaOcupada = true;
 
@@ -41,10 +37,7 @@ namespace RestauranteRepositorios.Services.ServiceMesa
                     .Where(m => m.MesaId == mesaId && m.MesaOcupada == true)
                     .FirstOrDefault();
 
-            _ = mesa ?? throw new Exception("Mesa inexistente");
-
-            if (mesa.MesaId == mesaId && mesa.MesaOcupada == false)
-                throw new Exception("Mesa invalida ou desocupada, escolha a mesa correta! ");
+            _ = mesa ?? throw new Exception("Mesa inexistente ou ocupada");
             
             mesa.MesaOcupada = false;
 

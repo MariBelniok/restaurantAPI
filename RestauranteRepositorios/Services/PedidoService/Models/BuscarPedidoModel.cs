@@ -11,7 +11,7 @@ namespace RestauranteRepositorios.Services
         public int ComandaId { get; set; }
         public int QtdeProduto { get; set; }
         public double ValorPedido { get; set; }
-        public int StatusPedidoId { get; set; }
+        public StatusPedido StatusPedido { get; set; }
         public ListarProdutosModel Produto { get; set; }
     }
 }

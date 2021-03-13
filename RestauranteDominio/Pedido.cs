@@ -24,6 +24,5 @@ namespace RestauranteDominio
         [ForeignKey("StatusPedidoId")]
         public StatusPedido StatusPedido { get; set; }
 
-
     }
 }

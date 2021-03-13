@@ -13,11 +13,13 @@ namespace RestauranteRepositorios.Services
     {
         private readonly RestauranteContexto _contexto;
         private readonly ProdutoService _produtoService;
+        private readonly ComandaService _comandaService;
 
-        public PedidoService(RestauranteContexto contexto, ProdutoService produtoService)
+        public PedidoService(RestauranteContexto contexto, ProdutoService produtoService, ComandaService comandaService)
         {
             _contexto = contexto;
             _produtoService = produtoService;
+            _comandaService = comandaService;
         }
 
         //ADICIONA PEDIDOS
@@ -27,12 +29,10 @@ namespace RestauranteRepositorios.Services
             _ = produto ?? throw new Exception("Produto inexistente");
             var valorTotalPedido = produto.ValorProduto * model.QtdeProduto;
 
-            
-
             if (model.ProdutoId == 1)
                 throw new Exception("Esse produto é inválido.");
 
-            if (QtdeValida(model.ProdutoId, model.QtdeProduto, model.ComandaId) == false)
+            if (!QtdeValida(model.ProdutoId, model.QtdeProduto, model.ComandaId))
                 throw new Exception("Quantidade de items escolhido esta acima do permitido! ");
 
             var pedido = new Pedido()
@@ -44,39 +44,20 @@ namespace RestauranteRepositorios.Services
                 StatusPedidoId = (int)StatusPedidoEnum.Realizado
             };
 
-            var comandaValor = _contexto.Comanda
-                        .Where(c => c.ComandaId == comandaId)
-                        .Select(c => c.Valor).FirstOrDefault();
-            comandaValor += valorTotalPedido;
-
             _contexto.Add(pedido);
+
             await _contexto.SaveChangesAsync();
+
+            await _comandaService.AtualizarValorComanda(comandaId);
         }
-
-        //ADICIONA RODIZIO AO INICIAR COMANDA
-        public async Task AdicionarRodizio(int comandaId, int qtdePessoas)
-        {
-
-            var rodizio = new Pedido()
-            {
-                ComandaId = comandaId,
-                ProdutoId = 1,
-                QtdeProduto = qtdePessoas,
-                ValorPedido = ValorTotalPedido(1, qtdePessoas),
-                StatusPedidoId = (int)StatusPedidoEnum.Realizado
-            };
-
-            var comanda = _contexto.Comanda
-                        .Where(c => c.ComandaId == comandaId);
-
-            _contexto.Add(rodizio);
-            await _contexto.SaveChangesAsync();
-        }
-
 
         //ATUALIZA UM PRODUTO
-        public async Task AtualizarPedido(int comandaId, int pedidoId, int quantidadeItem)
-        {        
+        public async Task AtualizarPedido(int comandaId, int pedidoId, int quantidadeItem, int prodId)
+        {
+            var produto = await _produtoService.ObterProduto(prodId);
+            _ = produto ?? throw new Exception("Produto inexistente");
+            var valorTotalPedido = produto.ValorProduto * quantidadeItem;
+
             var pedido = _contexto.Pedido
                     .Where(ped => ped.PedidoId == pedidoId && ped.ComandaId == comandaId)
                     .OrderBy(p => p.PedidoId)
@@ -89,14 +70,20 @@ namespace RestauranteRepositorios.Services
             
 
             pedido.QtdeProduto = quantidadeItem;
-            pedido.ValorPedido = ValorTotalPedido(pedido.ProdutoId, quantidadeItem);
+            pedido.ValorPedido = valorTotalPedido;
+
+            var comanda = _contexto.Comanda
+                        .Where(c => c.ComandaId == comandaId).FirstOrDefault();
 
             await _contexto.SaveChangesAsync();
+
+            await _comandaService.AtualizarValorComanda(comandaId);
         }
 
         //REMOVE UM PRODUTO
         public async Task RemoverPedido(int comandaId, int pedidoId)
         {
+
             if(pedidoId == 1)
                 throw new Exception("O rodizio não pode ser cancelado da sua comanda!");
             
@@ -110,6 +97,8 @@ namespace RestauranteRepositorios.Services
             pedido.StatusPedidoId = (int)StatusPedidoEnum.Cancelado;
 
             await _contexto.SaveChangesAsync();
+
+            await _comandaService.AtualizarValorComanda(comandaId);
         }
 
         //LISTA OS PEDIDOS REALIZADOS
@@ -125,20 +114,12 @@ namespace RestauranteRepositorios.Services
                     ComandaId = p.ComandaId,
                     QtdeProduto = p.QtdeProduto,
                     ValorPedido = p.ValorPedido,
-                    StatusPedidoId = p.StatusPedidoId
+                    StatusPedido = p.StatusPedido
                 }).ToListAsync();
 
             _ = pedidos ?? throw new Exception("Pedidos inexistentes");
 
             return await pedidos;
-        }
-
-        //CALCULA O VALOR TOTAL DO PEDIDO
-        public double ValorTotalPedido(int prodId, int quantidade)
-        {
-            return _contexto.Produto
-                    .Where(p => p.ProdutoId == prodId)
-                    .Sum(p => p.ValorProduto * quantidade);
         }
 
         //CALCULA A QUANTIDADE VALIDA DE ITEM POR PEDIDO

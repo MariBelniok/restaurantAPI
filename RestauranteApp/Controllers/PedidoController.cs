@@ -38,9 +38,9 @@ namespace RestauranteApp.Controllers
 
         // PUT api/<PedidoController>/5
         [HttpPut("Atualizar/{comandaId}/{pedidoId}")]
-        public Task PutAtualizar(int comandaId, int pedidoId, int quantidadeItem)
+        public Task PutAtualizar(int comandaId, int pedidoId, int qtdeItem, int prodId)
         {
-            return _service.AtualizarPedido(comandaId, pedidoId, quantidadeItem);
+            return _service.AtualizarPedido(comandaId, pedidoId, qtdeItem, prodId);
         }
 
         // PUT api/<PedidoController>/5

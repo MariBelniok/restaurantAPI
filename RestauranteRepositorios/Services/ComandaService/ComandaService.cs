@@ -13,13 +13,13 @@ namespace RestauranteRepositorios.Services
     {
         private readonly RestauranteContexto _contexto;
         private readonly MesaService _mesaService;
-        private readonly PedidoService _pedidoService;
+        private readonly ProdutoService _produtoService;
 
-        public ComandaService(RestauranteContexto contexto, MesaService mesaService, PedidoService pedidoService)
+        public ComandaService(RestauranteContexto contexto, MesaService mesaService, ProdutoService produtoService)
         {
             _contexto = contexto;
             _mesaService = mesaService;
-            _pedidoService = pedidoService;
+            _produtoService = produtoService;
         }
         
         //ADICIONA NOVA COMANDA
@@ -43,7 +43,24 @@ namespace RestauranteRepositorios.Services
             await _contexto.SaveChangesAsync();
 
             int comandaId = comanda.ComandaId;
-            await _pedidoService.AdicionarRodizio(comandaId, comanda.QtdePessoasMesa);
+
+            var produto = await _produtoService.ObterProduto(1);
+            _ = produto ?? throw new Exception("Produto inexistente");
+            var valorTotalPedido = produto.ValorProduto * model.QtdePessoasMesa;
+
+            var rodizio = new Pedido()
+            {
+                ProdutoId = 1,
+                ComandaId = comandaId,
+                QtdeProduto = model.QtdePessoasMesa,
+                ValorPedido = valorTotalPedido,
+                StatusPedidoId = (int)StatusPedidoEnum.Realizado
+            };
+
+            _contexto.Pedido.Add(rodizio);
+            await _contexto.SaveChangesAsync();
+
+            await AtualizarValorComanda(comandaId);
         }
 
         //ENCERRA E PAGA COMANDA
@@ -54,12 +71,11 @@ namespace RestauranteRepositorios.Services
                         .OrderBy(c => c.ComandaId)
                         .FirstOrDefault();
 
-            _ = comanda ?? throw new Exception("Comanda inexistente!");
+            _ = comanda ?? throw new Exception("Comanda já esta paga ou inexistente!");
 
             await _mesaService.DesocuparMesa(comanda.MesaId);
 
             comanda.DataHoraSaida = DateTime.Now;
-            comanda.Valor = ValorTotalComanda(comandaId);
             comanda.ComandaPaga = true;
 
             await _contexto.SaveChangesAsync();  
@@ -73,7 +89,7 @@ namespace RestauranteRepositorios.Services
                         .OrderBy(c => c.ComandaId)
                         .LastOrDefault();
 
-            _ = comanda ?? throw new Exception("Comanda inexistente!");
+            _ = comanda ?? throw new Exception("Comanda já esta paga ou inexistente!");
             comanda.DataHoraSaida = DateTime.Now;
             comanda.Valor = 0;
             comanda.ComandaPaga = true;
@@ -130,13 +146,14 @@ namespace RestauranteRepositorios.Services
                 ComandaId = p.ComandaId,
                 QtdeProduto = p.QtdeProduto,
                 ValorPedido = p.ValorPedido,
-                StatusPedidoId = p.StatusPedidoId
+                StatusPedido = p.StatusPedido
             }).ToList();
 
             _ = comanda ?? throw new Exception("Comanda inexistente!");
 
             return res;
         }
+
 
         //BUSCA COMANDAS NÃO FINALIZADAS
         public async Task<ComandaModel> BuscarComandaAberta(int comandaId)
@@ -181,23 +198,26 @@ namespace RestauranteRepositorios.Services
                 ComandaId = p.ComandaId,
                 QtdeProduto = p.QtdeProduto,
                 ValorPedido = p.ValorPedido,
-                StatusPedidoId = p.StatusPedidoId
+                StatusPedido = p.StatusPedido
             }).ToList();
 
             _ = comanda ?? throw new Exception("Comanda inexistente!");
 
             return res;
         }
-
-        public double ValorTotalComanda(int comandaId)
+        public async Task AtualizarValorComanda(int comandaId)
         {
-            var valorTotalComanda = _contexto.Pedido
+            var pedidos = _contexto.Pedido
                         .Where(p => p.ComandaId == comandaId)
                         .Select(p => p.ValorPedido)
                         .Sum();
-              
 
-            return valorTotalComanda;
+            var comanda = _contexto.Comanda
+                        .Where(c => c.ComandaId == comandaId).FirstOrDefault();
+
+            comanda.Valor = pedidos;
+
+            await _contexto.SaveChangesAsync();
         }
     }
 }

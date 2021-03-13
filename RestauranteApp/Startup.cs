@@ -42,9 +42,9 @@ namespace RestauranteApp
             RestauranteContexto contexto = new RestauranteContexto();
             MesaService mesaService = new MesaService(contexto);
             ProdutoService produtoService = new ProdutoService(contexto);
-            PedidoService pedidoService = new PedidoService(contexto, produtoService);
-            ComandaService comandaService = new ComandaService(contexto, mesaService, pedidoService);
             
+            ComandaService comandaService = new ComandaService(contexto, mesaService, produtoService);
+            PedidoService pedidoService = new PedidoService(contexto, produtoService, comandaService);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
