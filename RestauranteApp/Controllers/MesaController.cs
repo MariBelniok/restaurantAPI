@@ -22,23 +22,10 @@ namespace RestauranteApp.Controllers
 
         // GET: api/<MesaController>
         [HttpGet]
-        public Task Get()
+        public async Task<List<int>> Get()
         {
-            var mesas = _service.BuscarMesasDisponiveis();
+            var mesas = await _service.BuscarMesasDisponiveis();
             return mesas;
-        }
-
-        // PUT api/<MesaController>/5
-        [HttpPut("Ocupar/{id}")]
-        public async Task PutOcupar(int id)
-        {
-           await _service.OcuparMesa(id);
-        }
-        
-        [HttpPut("Desocupar/{id}")]
-        public async Task PutDesocupar(int id)
-        {
-            await _service.DesocuparMesa(id);
         }
     }
 }

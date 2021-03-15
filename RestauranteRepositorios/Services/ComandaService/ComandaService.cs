@@ -26,7 +26,7 @@ namespace RestauranteRepositorios.Services
         public async Task AdicionarComanda(AdicionarComandaModel model)
         {
             if (model.QtdePessoasMesa > 4)
-                throw new Exception("Valor máximo de 4 pessoas por mesa!");
+                throw new Exception("Quantidade máxima de 4 pessoas por mesa!");
 
             var comanda = new Comanda()
             {
