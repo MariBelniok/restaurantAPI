@@ -4,7 +4,6 @@ using RestauranteRepositorios.Services.ServiceMesa;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using RestauranteDominio;
 
 namespace RestauranteRepositorios.Services
@@ -22,16 +21,13 @@ namespace RestauranteRepositorios.Services
             _produtoService = produtoService;
         }
         
-        //ADICIONA NOVA COMANDA
-        public async Task AdicionarComanda(AdicionarComandaModel model)
+        public async Task AdicionarComanda(AdicionarAtendimentoModel model)
         {
-            if (model.QtdePessoasMesa > 4)
-                throw new Exception("Quantidade máxima de 4 pessoas por mesa!");
+            model.Validar();
 
             var comanda = new Comanda()
             {
-                DataHoraEntrada = model.DataHoraEntrada,
-                Valor = model.Valor,
+                DataHoraEntrada = DateTime.Now,
                 ComandaPaga = false,
                 QtdePessoasMesa = model.QtdePessoasMesa,
                 MesaId = model.MesaId
@@ -63,7 +59,6 @@ namespace RestauranteRepositorios.Services
             await AtualizarValorComanda(comandaId);
         }
 
-        //ENCERRA E PAGA COMANDA
         public async Task EncerrarComanda(int comandaId)
         {
             var comanda = _contexto.Comanda
@@ -78,10 +73,9 @@ namespace RestauranteRepositorios.Services
             comanda.DataHoraSaida = DateTime.Now;
             comanda.ComandaPaga = true;
 
-            await _contexto.SaveChangesAsync();  
+            await _contexto.SaveChangesAsync();
         }
 
-        //CANCELA COMANDA
         public async Task CancelarComanda(int comandaId)
         {
             var comanda = _contexto.Comanda
@@ -99,8 +93,7 @@ namespace RestauranteRepositorios.Services
             await _mesaService.DesocuparMesa(comanda.MesaId);
         }
 
-        //BUSCA A COMANDAS PAGAS
-        public async Task<ComandaFinalizadaModel> BuscarComandaPaga(int comandaId)
+        public async Task<FinalizadaModel> BuscarComandaPaga(int comandaId)
         {
 
             var comanda = await _contexto.Comanda
@@ -121,7 +114,7 @@ namespace RestauranteRepositorios.Services
                             comanda.Pedidos
                         }).FirstOrDefaultAsync();
 
-            var res = new ComandaFinalizadaModel
+            var res = new FinalizadaModel
             {
                 ComandaId = comanda.ComandaId,
                 MesaId = comanda.MesaId,
@@ -132,11 +125,11 @@ namespace RestauranteRepositorios.Services
                 QtdePessoasMesa = comanda.QtdePessoasMesa,
             };
 
-            res.Pedidos = comanda.Pedidos.Select(p => new BuscarPedidoModel
+            res.Pedidos = comanda.Pedidos.Select(p => new BuscarModel
             {
                 PedidoId = p.PedidoId,
                 ProdutoId = p.ProdutoId,
-                Produto = new ListarProdutosModel
+                Produto = new ListarModel
                 {
                     ProdutoId = p.ProdutoId,
                     NomeProduto = p.Produto.NomeProduto,
@@ -154,9 +147,7 @@ namespace RestauranteRepositorios.Services
             return res;
         }
 
-
-        //BUSCA COMANDAS NÃO FINALIZADAS
-        public async Task<ComandaModel> BuscarComandaAberta(int comandaId)
+        public async Task<AndamentoModel> BuscarComandaAberta(int comandaId)
         {
              var comanda = await _contexto.Comanda
                         .Where(c => c.ComandaId == comandaId)
@@ -175,7 +166,7 @@ namespace RestauranteRepositorios.Services
                             comanda.Pedidos
                         }).OrderBy(c => c.ComandaId).FirstOrDefaultAsync();
 
-            var res = new ComandaModel
+            var res = new AndamentoModel
             {
                 ComandaId = comanda.ComandaId,
                 MesaId = comanda.MesaId,
@@ -185,10 +176,10 @@ namespace RestauranteRepositorios.Services
                 QtdePessoasMesa = comanda.QtdePessoasMesa,
             };
 
-            res.Pedidos = comanda.Pedidos.Select(p => new BuscarPedidoModel {
+            res.Pedidos = comanda.Pedidos.Select(p => new BuscarModel {
                 PedidoId = p.PedidoId,
                 ProdutoId = p.ProdutoId,
-                Produto = new ListarProdutosModel
+                Produto = new ListarModel
                 {
                     ProdutoId = p.ProdutoId,
                     NomeProduto = p.Produto.NomeProduto,
@@ -205,6 +196,7 @@ namespace RestauranteRepositorios.Services
 
             return res;
         }
+
         public async Task AtualizarValorComanda(int comandaId)
         {
             var pedidos = _contexto.Pedido

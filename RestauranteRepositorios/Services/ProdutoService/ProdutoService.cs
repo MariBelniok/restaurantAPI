@@ -15,11 +15,11 @@ namespace RestauranteRepositorios.Services
             _contexto = contexto;
         }
         //FILTRA PRODUTOS DISPONIVEIS
-        public async Task<List<ListarProdutosModel>> BuscarProdutoDisponivel()
+        public async Task<List<ListarModel>> BuscarProdutoDisponivel()
         {
             var produtos = _contexto.Produto
                 .Where(p => p.Disponivel)
-                .Select(a => new ListarProdutosModel
+                .Select(a => new ListarModel
                 {
                     NomeProduto = a.NomeProduto,
                     ProdutoId = a.ProdutoId,
@@ -32,11 +32,11 @@ namespace RestauranteRepositorios.Services
 
             return await produtos;
         }
-        public async Task<List<ListarProdutosModel>> ListarMenu()
+        public async Task<List<ListarModel>> ListarMenu()
         {
             var produtos = _contexto.Produto
                 .Where(p => p.Disponivel && p.ProdutoId > 1)
-                .Select(a => new ListarProdutosModel
+                .Select(a => new ListarModel
                 {
                     NomeProduto = a.NomeProduto,
                     ProdutoId = a.ProdutoId,
@@ -50,11 +50,11 @@ namespace RestauranteRepositorios.Services
             return await produtos;
         }
 
-        public async Task<ListarProdutosModel> ObterProduto(int produtoId)
+        public async Task<ListarModel> ObterProduto(int produtoId)
         {
             var produto = await _contexto.Produto
                         .Where(p => p.ProdutoId == produtoId)
-                        .Select(p => new ListarProdutosModel()
+                        .Select(p => new ListarModel()
                         {
                             ProdutoId = p.ProdutoId,
                             NomeProduto = p.NomeProduto,

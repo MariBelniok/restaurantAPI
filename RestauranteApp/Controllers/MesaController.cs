@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestauranteRepositorios.Services.ServiceMesa;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using RestauranteRepositorios.Services.ServiceMesa.Models;
 
 namespace RestauranteApp.Controllers
 {
@@ -20,12 +17,10 @@ namespace RestauranteApp.Controllers
             _service = service;
         }
 
-        // GET: api/<MesaController>
         [HttpGet]
-        public async Task<List<int>> Get()
+        public async Task<List<ObterId>> Get()
         {
-            var mesas = await _service.BuscarMesasDisponiveis();
-            return mesas;
+             return await _service.BuscarMesasDisponiveis();
         }
     }
 }

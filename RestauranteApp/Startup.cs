@@ -41,8 +41,7 @@ namespace RestauranteApp
 
             RestauranteContexto contexto = new RestauranteContexto();
             MesaService mesaService = new MesaService(contexto);
-            ProdutoService produtoService = new ProdutoService(contexto);
-            
+            ProdutoService produtoService = new ProdutoService(contexto);           
             ComandaService comandaService = new ComandaService(contexto, mesaService, produtoService);
             PedidoService pedidoService = new PedidoService(contexto, produtoService, comandaService);
 

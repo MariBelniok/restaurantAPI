@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestauranteDominio;
+using RestauranteRepositorios.Services.ServiceMesa.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,6 @@ namespace RestauranteRepositorios.Services.ServiceMesa
             _contexto = contexto;
         }
 
-        //MUDA MESAOCUPADA PARA TRUE
         public async Task OcuparMesa(int mesaId)
         {
             var mesa = _contexto.Mesa
@@ -30,7 +29,6 @@ namespace RestauranteRepositorios.Services.ServiceMesa
             await _contexto.SaveChangesAsync();
         }
 
-        //MUDA MESOCUPADA PARA FALSE
         public async Task DesocuparMesa(int mesaId)
         {
             var mesa = _contexto.Mesa
@@ -44,13 +42,13 @@ namespace RestauranteRepositorios.Services.ServiceMesa
             await _contexto.SaveChangesAsync();
         }
 
-        //LISTA AS MESAS DISPONIVEIS
-        public async Task<List<int>> BuscarMesasDisponiveis()
+        public async Task<List<ObterId>> BuscarMesasDisponiveis()
         {
             return await _contexto.Mesa
                     .Where(m => m.MesaOcupada != true)
-                    .Select(m => m.MesaId)
-                    .ToListAsync();
+                    .Select(m => new ObterId{ 
+                        MesaId = m.MesaId
+                    }).ToListAsync();
         }
     }
 }

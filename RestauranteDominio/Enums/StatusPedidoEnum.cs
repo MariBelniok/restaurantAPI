@@ -1,6 +1,6 @@
 ﻿namespace RestauranteDominio.Enums
 {
-    public enum StatusPedidoEnum : int
+    public enum StatusPedidoEnum
     {
         Realizado = 1,
         Cancelado = 2

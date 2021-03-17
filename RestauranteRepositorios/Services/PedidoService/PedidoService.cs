@@ -23,8 +23,10 @@ namespace RestauranteRepositorios.Services
         }
 
         //ADICIONA PEDIDOS
-        public async Task AdicionarPedido(AdicionarPedidoModel model, int comandaId)
+        public async Task AdicionarPedido(AdicionarNovoModel model, int comandaId)
         {
+            model.Validar();
+
             var produto = await _produtoService.ObterProduto(model.ProdutoId);
             _ = produto ?? throw new Exception("Produto inexistente");
             var valorTotalPedido = produto.ValorProduto * model.QtdeProduto;
@@ -32,7 +34,7 @@ namespace RestauranteRepositorios.Services
             if (model.ProdutoId == 1) //item rodizio
                 throw new Exception("Esse produto é inválido.");
 
-            if (!QtdeValida(model.ProdutoId, model.QtdeProduto, model.ComandaId)) 
+            if (!QtdeValida(model.ProdutoId, model.QtdeProduto, model.ComandaId))
                 throw new Exception("Quantidade de items escolhido esta acima do permitido! ");
 
             var pedido = new Pedido()
@@ -53,7 +55,7 @@ namespace RestauranteRepositorios.Services
         }
 
         //ATUALIZA UM PRODUTO
-        public async Task AtualizarPedido(AtualizarPedidoModel model)
+        public async Task AtualizarPedido(AtualizarModel model)
         {
             var produto = await _produtoService.ObterProduto(model.ProdutoId);
             _ = produto ?? throw new Exception("Produto inexistente");
@@ -104,36 +106,6 @@ namespace RestauranteRepositorios.Services
 
             if (pedido.ValorPedido > 0)
                 await _comandaService.AtualizarValorComanda(comandaId);
-        }
-
-        //LISTA OS PEDIDOS REALIZADOS
-        public async Task<List<BuscarPedidoModel>> BuscarPedidos(int comandaId)
-        {
-            var pedidos =
-                await _contexto.Pedido
-                .Where(p => p.ComandaId == comandaId)
-                .Include(p => p.Produto)
-                .Select(p => new BuscarPedidoModel
-                {
-                    PedidoId = p.PedidoId,
-                    ComandaId = p.ComandaId,
-                    ProdutoId = p.ProdutoId,
-                    QtdeProduto = p.QtdeProduto,
-                    ValorPedido = p.ValorPedido,
-                    StatusPedido = p.StatusPedido,
-                    Produto = new ListarProdutosModel
-                    {
-                        ProdutoId = p.Produto.ProdutoId,
-                        NomeProduto = p.Produto.NomeProduto,
-                        ValorProduto = p.Produto.ValorProduto,
-                        QtdePermitida = p.Produto.QtdePermitida
-                    }
-                }).ToListAsync();
-         
-            
-            _ = pedidos ?? throw new Exception("Pedidos inexistentes");
-
-            return pedidos;
         }
 
         //CALCULA A QUANTIDADE VALIDA DE ITEM POR PEDIDO
