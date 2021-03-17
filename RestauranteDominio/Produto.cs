@@ -6,17 +6,11 @@ namespace RestauranteDominio
     public class Produto
     {
         [Key]
-
-        public int ProdutoId { get; set; }
-
+        public int ProdutoId { get; set; } //PK
         public string ImagemProduto { get; set; }
-
         public string NomeProduto { get; set; }
-
         public double ValorProduto { get; set; }
-
         public int  QtdePermitida { get; set; }
-
         public bool Disponivel { get; set; }
     }
 }

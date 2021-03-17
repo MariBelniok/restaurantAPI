@@ -53,10 +53,10 @@ namespace RestauranteRepositorios.Services
                 StatusPedidoId = (int)StatusPedidoEnum.Realizado
             };
 
+            comanda.Valor += rodizio.ValorPedido;
+
             _contexto.Pedido.Add(rodizio);
             await _contexto.SaveChangesAsync();
-
-            await AtualizarValorComanda(comandaId);
         }
 
         public async Task EncerrarComanda(int comandaId)

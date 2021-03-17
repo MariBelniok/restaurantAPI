@@ -22,7 +22,6 @@ namespace RestauranteRepositorios.Services
             _comandaService = comandaService;
         }
 
-        //ADICIONA PEDIDOS
         public async Task AdicionarPedido(AdicionarNovoModel model, int comandaId)
         {
             model.Validar();
@@ -54,7 +53,6 @@ namespace RestauranteRepositorios.Services
                 await _comandaService.AtualizarValorComanda(comandaId);
         }
 
-        //ATUALIZA UM PRODUTO
         public async Task AtualizarPedido(AtualizarModel model)
         {
             var produto = await _produtoService.ObterProduto(model.ProdutoId);
@@ -83,7 +81,6 @@ namespace RestauranteRepositorios.Services
                 await _comandaService.AtualizarValorComanda(pedido.ComandaId);
         }
 
-        //REMOVE UM PRODUTO
         public async Task RemoverPedido(int comandaId, int pedidoId)
         {
 
