@@ -13,13 +13,11 @@ namespace RestauranteRepositorios.Services
     {
         private readonly RestauranteContexto _contexto;
         private readonly ProdutoService _produtoService;
-        private readonly ComandaService _comandaService;
 
-        public PedidoService(RestauranteContexto contexto, ProdutoService produtoService, ComandaService comandaService)
+        public PedidoService(RestauranteContexto contexto, ProdutoService produtoService)
         {
             _contexto = contexto;
             _produtoService = produtoService;
-            _comandaService = comandaService;
         }
 
         public async Task AdicionarPedido(AdicionarNovoModel model, int comandaId)
@@ -34,7 +32,7 @@ namespace RestauranteRepositorios.Services
                 throw new Exception("Esse produto é inválido.");
 
             if (!QtdeValida(model.ProdutoId, model.QtdeProduto, model.ComandaId))
-                throw new Exception("Quantidade de items escolhido esta acima do permitido! ");
+                throw new Exception("Quantidade de items escolhido invalida! ");
 
             var pedido = new Pedido()
             {
@@ -61,6 +59,9 @@ namespace RestauranteRepositorios.Services
 
         public async Task AtualizarPedido(AtualizarModel model)
         {
+            if (model.PedidoId == 1)
+                throw new Exception("O rodizio não pode ser editado!");
+
             var produto = await _produtoService.ObterProduto(model.ProdutoId);
             _ = produto ?? throw new Exception("Produto inexistente");
             var valorTotalPedido = produto.ValorProduto * model.QtdeProduto;
@@ -73,7 +74,7 @@ namespace RestauranteRepositorios.Services
             _ = pedido ?? throw new Exception("Pedido inválido. Só é possivel atualizar o ultimo pedido realizado e que não esteja cancelado!");
 
             if (!QtdeValida(pedido.ProdutoId, model.QtdeProduto, pedido.ComandaId))
-                throw new Exception("Quantidade de items escolhido esta acima do permitido! ");
+                throw new Exception("Quantidade de items escolhido invalida! ");
 
             pedido.QtdeProduto = model.QtdeProduto;
 
@@ -103,7 +104,7 @@ namespace RestauranteRepositorios.Services
                         .OrderBy(p => p.PedidoId)
                         .LastOrDefault();
 
-            _ = pedido ?? throw new Exception("Pedido inválido. Só é possivel atualizar o ultimo pedido realizado e que não esteja cancelado!");
+            _ = pedido ?? throw new Exception("Pedido inválido. Só é possivel cancelar o ultimo pedido realizado e que não esteja cancelado!");
 
             pedido.StatusPedidoId = (int)StatusPedidoEnum.Cancelado;
 
@@ -128,7 +129,7 @@ namespace RestauranteRepositorios.Services
             int qtdePermitida = _contexto.Produto
                         .Where(p => p.ProdutoId == prodId)
                         .Select(p => p.QtdePermitida).FirstOrDefault();
-            if(qtdeEscolhida > (qtdePermitida * pessoasMesa))
+            if(qtdeEscolhida > (qtdePermitida * pessoasMesa) || qtdeEscolhida < 1)
             {
                 return false;
             }
