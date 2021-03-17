@@ -47,10 +47,16 @@ namespace RestauranteRepositorios.Services
 
             _contexto.Add(pedido);
 
-            await _contexto.SaveChangesAsync();
+            if (produto.ValorProduto > 0)
+            {
+                var comanda = _contexto.Comanda
+                        .Where(c => comandaId == c.ComandaId)
+                        .FirstOrDefault();
 
-            if(pedido.ValorPedido > 0)
-                await _comandaService.AtualizarValorComanda(comandaId);
+                comanda.Valor += pedido.ValorPedido;
+            }
+
+            await _contexto.SaveChangesAsync();
         }
 
         public async Task AtualizarPedido(AtualizarModel model)
@@ -60,49 +66,57 @@ namespace RestauranteRepositorios.Services
             var valorTotalPedido = produto.ValorProduto * model.QtdeProduto;
 
             var pedido = _contexto.Pedido
-                    .Where(p => p.ComandaId == model.ComandaId)
+                    .Where(p => p.ComandaId == model.ComandaId && p.PedidoId == model.PedidoId && p.StatusPedidoId != (int)StatusPedidoEnum.Cancelado)
                     .OrderBy(p => p.PedidoId)
                     .LastOrDefault();
 
-            if (model.PedidoId < pedido.PedidoId)
-                throw new Exception("Só é possivel atualizar o ultimo pedido realizado!");
-
-            _ = pedido ?? throw new Exception("Pedido inexistente");
+            _ = pedido ?? throw new Exception("Pedido inválido. Só é possivel atualizar o ultimo pedido realizado e que não esteja cancelado!");
 
             if (!QtdeValida(pedido.ProdutoId, model.QtdeProduto, pedido.ComandaId))
                 throw new Exception("Quantidade de items escolhido esta acima do permitido! ");
 
             pedido.QtdeProduto = model.QtdeProduto;
+
+            if (produto.ValorProduto > 0)
+            {
+                var comanda = _contexto.Comanda
+                    .Where(c => model.ComandaId == c.ComandaId)
+                    .FirstOrDefault();
+
+                comanda.Valor -= pedido.ValorPedido;
+
+                comanda.Valor += valorTotalPedido;
+            }
+
             pedido.ValorPedido = valorTotalPedido;
 
             await _contexto.SaveChangesAsync();
-
-            if (pedido.ValorPedido > 0)
-                await _comandaService.AtualizarValorComanda(pedido.ComandaId);
         }
 
         public async Task RemoverPedido(int comandaId, int pedidoId)
         {
-
             if(pedidoId == 1)
                 throw new Exception("O rodizio não pode ser cancelado da sua comanda!");
-            
+
             var pedido = _contexto.Pedido
-                        .Where(p => p.ComandaId == comandaId)
+                        .Where(p => p.ComandaId == comandaId && p.PedidoId == pedidoId && p.StatusPedidoId != (int)StatusPedidoEnum.Cancelado)
                         .OrderBy(p => p.PedidoId)
                         .LastOrDefault();
 
-            if (pedidoId < pedido.PedidoId)
-                throw new Exception("Só é possivel cancelar o ultimo pedido realizado!");
-
-            _ = pedido ?? throw new Exception("Pedido inexistente");
+            _ = pedido ?? throw new Exception("Pedido inválido. Só é possivel atualizar o ultimo pedido realizado e que não esteja cancelado!");
 
             pedido.StatusPedidoId = (int)StatusPedidoEnum.Cancelado;
 
-            await _contexto.SaveChangesAsync();
-
             if (pedido.ValorPedido > 0)
-                await _comandaService.AtualizarValorComanda(comandaId);
+            {
+                var comanda = _contexto.Comanda
+                        .Where(c => comandaId == c.ComandaId)
+                        .FirstOrDefault();
+
+                comanda.Valor -= pedido.ValorPedido;
+            }
+
+            await _contexto.SaveChangesAsync();
         }
 
         //CALCULA A QUANTIDADE VALIDA DE ITEM POR PEDIDO

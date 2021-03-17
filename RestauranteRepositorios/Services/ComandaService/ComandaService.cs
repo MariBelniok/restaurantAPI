@@ -53,10 +53,17 @@ namespace RestauranteRepositorios.Services
                 StatusPedidoId = (int)StatusPedidoEnum.Realizado
             };
 
+            comanda = _contexto.Comanda
+                    .Where(c => comandaId == c.ComandaId)
+                    .FirstOrDefault();
+
             comanda.Valor += rodizio.ValorPedido;
+           
 
             _contexto.Pedido.Add(rodizio);
             await _contexto.SaveChangesAsync();
+
+            //await AtualizarValorComanda(comandaId);
         }
 
         public async Task EncerrarComanda(int comandaId)
@@ -195,21 +202,6 @@ namespace RestauranteRepositorios.Services
             _ = comanda ?? throw new Exception("Comanda inexistente!");
 
             return res;
-        }
-
-        public async Task AtualizarValorComanda(int comandaId)
-        {
-            var pedidos = _contexto.Pedido
-                        .Where(p => p.ComandaId == comandaId && p.StatusPedidoId == (int)StatusPedidoEnum.Realizado && p.ValorPedido > 0)
-                        .Select(p => p.ValorPedido)
-                        .Sum();
-
-            var comanda = _contexto.Comanda
-                        .Where(c => c.ComandaId == comandaId).FirstOrDefault();
-
-            comanda.Valor = pedidos;
-
-            await _contexto.SaveChangesAsync();
         }
     }
 }
