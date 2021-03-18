@@ -17,7 +17,7 @@ namespace RestauranteRepositorios.Services
                 throw new Exception("A quantidade esta invalida!");
 
             if (StatusPedidoId == StatusPedidoEnum.Cancelado)
-                throw new Exception("Todo pedido novo adicionado deve ter status 'recebido' ");
+                throw new Exception("Todo novo pedido adicionado deve ter status 'recebido' ");
         }
     }
 }

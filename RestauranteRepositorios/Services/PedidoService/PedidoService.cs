@@ -28,6 +28,11 @@ namespace RestauranteRepositorios.Services
             _ = produto ?? throw new Exception("Produto inexistente");
             var valorTotalPedido = produto.ValorProduto * model.QtdeProduto;
 
+            var comanda = _contexto.Comanda
+                .Where(c => comandaId == c.ComandaId)
+                .FirstOrDefault();
+            _ = comanda ?? throw new Exception("Comanda inexistente");
+
             if (model.ProdutoId == 1) //item rodizio
                 throw new Exception("Esse produto é inválido.");
 
@@ -47,10 +52,6 @@ namespace RestauranteRepositorios.Services
 
             if (produto.ValorProduto > 0)
             {
-                var comanda = _contexto.Comanda
-                        .Where(c => comandaId == c.ComandaId)
-                        .FirstOrDefault();
-
                 comanda.Valor += pedido.ValorPedido;
             }
 
@@ -66,6 +67,11 @@ namespace RestauranteRepositorios.Services
             _ = produto ?? throw new Exception("Produto inexistente");
             var valorTotalPedido = produto.ValorProduto * model.QtdeProduto;
 
+            var comanda = _contexto.Comanda
+                .Where(c => model.ComandaId == c.ComandaId)
+                .FirstOrDefault();
+            _ = comanda ?? throw new Exception("Comanda inexistente");
+
             var pedido = _contexto.Pedido
                     .Where(p => p.ComandaId == model.ComandaId && p.PedidoId == model.PedidoId && p.StatusPedidoId != (int)StatusPedidoEnum.Cancelado)
                     .OrderBy(p => p.PedidoId)
@@ -80,10 +86,6 @@ namespace RestauranteRepositorios.Services
 
             if (produto.ValorProduto > 0)
             {
-                var comanda = _contexto.Comanda
-                    .Where(c => model.ComandaId == c.ComandaId)
-                    .FirstOrDefault();
-
                 comanda.Valor -= pedido.ValorPedido;
 
                 comanda.Valor += valorTotalPedido;
@@ -106,14 +108,15 @@ namespace RestauranteRepositorios.Services
 
             _ = pedido ?? throw new Exception("Pedido inválido. Só é possivel cancelar o ultimo pedido realizado e que não esteja cancelado!");
 
+            var comanda = _contexto.Comanda
+                .Where(c => comandaId == c.ComandaId)
+                .FirstOrDefault();
+            _ = comanda ?? throw new Exception("Comanda inexistente");
+
             pedido.StatusPedidoId = (int)StatusPedidoEnum.Cancelado;
 
             if (pedido.ValorPedido > 0)
             {
-                var comanda = _contexto.Comanda
-                        .Where(c => comandaId == c.ComandaId)
-                        .FirstOrDefault();
-
                 comanda.Valor -= pedido.ValorPedido;
             }
 
