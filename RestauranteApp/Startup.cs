@@ -34,16 +34,10 @@ namespace RestauranteApp
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddScoped<ComandaService, ComandaService>();
-            services.AddScoped<PedidoService, PedidoService>();
-            services.AddScoped<ProdutoService, ProdutoService>();
-            services.AddScoped<MesaService, MesaService>();
-
-            RestauranteContexto contexto = new RestauranteContexto();
-            MesaService mesaService = new MesaService(contexto);
-            ProdutoService produtoService = new ProdutoService(contexto);           
-            ComandaService comandaService = new ComandaService(contexto, mesaService, produtoService);
-            PedidoService pedidoService = new PedidoService(contexto, produtoService);
+            services.AddScoped<ComandaService>();
+            services.AddScoped<PedidoService>();
+            services.AddScoped<ProdutoService>();
+            services.AddScoped<MesaService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
