@@ -24,13 +24,13 @@ namespace RestauranteApp.Controllers
             await _service.AdicionarPedido(model, comandaId);
         }
 
-        [HttpPut("atualizar/{comandaId}/{pedidoId}")]
+        [HttpPut("{comandaId}/{pedidoId}")]
         public async Task PutAtualizar(AtualizarModel model)
         {
             await _service.AtualizarPedido(model);
         }
 
-        [HttpPut("cancelar/{comandaId}/{pedidoId}")]
+        [HttpDelete("{comandaId}/{pedidoId}")]
         public async Task PutDelete(int comandaId, int pedidoId)
         {
             await _service.RemoverPedido(comandaId, pedidoId);

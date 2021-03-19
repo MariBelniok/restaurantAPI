@@ -15,17 +15,17 @@ namespace RestauranteApp.Controllers
             _service = service;
         }
 
-        [HttpGet("aberta/{id}", Name = "aberta")]
-        public async Task<AndamentoModel> GetComandaAberta(int id)
+        [HttpGet("aberta/{comandaId}", Name = "aberta")]
+        public async Task<AndamentoModel> GetComandaAberta(int comandaId)
         {
-            var comanda = await _service.BuscarComandaAberta(id);
+            var comanda = await _service.BuscarComandaAberta(comandaId);
             return comanda;
         }
 
-        [HttpGet("finalizada/{id}", Name = "finalizada")]
-        public async Task<FinalizadaModel> GetComandaFinalizada(int id)
+        [HttpGet("finalizada/{comandaId}", Name = "finalizada")]
+        public async Task<FinalizadaModel> GetComandaFinalizada(int comandaId)
         {
-            var comanda = await _service.BuscarComandaPaga(id);
+            var comanda = await _service.BuscarComandaPaga(comandaId);
             return comanda;
         }
 
@@ -35,16 +35,16 @@ namespace RestauranteApp.Controllers
             await _service.AdicionarComanda(model);
         }
 
-        [HttpPut("pagar/{id}", Name = "pagar")]
-        public async Task PutPagar(int id)
+        [HttpPut("pagar/{comandaId}", Name = "pagar")]
+        public async Task PutPagar(int comandaId)
         {
-            await _service.EncerrarComanda(id);
+            await _service.EncerrarComanda(comandaId);
         }
 
-        [HttpPut("cancelar/{id}", Name = "cancelar")]
-        public async Task PutCancelar(int id)
+        [HttpDelete("{comandaId}", Name = "cancelar")]
+        public async Task PutCancelar(int comandaId)
         {
-            await _service.CancelarComanda(id);
+            await _service.CancelarComanda(comandaId);
         }
     }
 }
