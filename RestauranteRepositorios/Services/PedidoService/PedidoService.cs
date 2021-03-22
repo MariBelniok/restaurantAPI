@@ -30,6 +30,9 @@ namespace RestauranteRepositorios.Services
                 .FirstOrDefault();
             _ = comanda ?? throw new Exception("Comanda inexistente");
 
+            if (comanda.ComandaPaga)
+                throw new Exception("Comanda incorreta! Essa comanda já encontra-se paga");
+
             if (model.ProdutoId == 1) //item rodizio
                 throw new Exception("Esse produto é inválido.");
 

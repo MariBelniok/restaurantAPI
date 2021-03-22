@@ -17,6 +17,11 @@ namespace RestauranteRepositorios.Services
 
             if (MesaId < 1 || MesaId > 16)
                 throw new Exception("Favor escolher uma mesa valida");
+
+            if (ComandaPaga)
+            {
+                throw new Exception("Comanda já foi aberta e finalizada");
+            }
         }
     }
 }

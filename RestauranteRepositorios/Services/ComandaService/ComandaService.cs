@@ -104,8 +104,6 @@ namespace RestauranteRepositorios.Services
             var comanda = await _contexto.Comanda
                         .Where(c => c.ComandaId == comandaId)
                         .Include(c => c.Pedidos)
-                        .ThenInclude(p => p.StatusPedidoEnum)
-                        .Include(c => c.Pedidos)
                         .ThenInclude(p => p.Produto)
                         .Select(comanda => new
                         {
@@ -156,8 +154,6 @@ namespace RestauranteRepositorios.Services
         {
              var comanda = await _contexto.Comanda
                         .Where(c => c.ComandaId == comandaId)
-                        .Include(c => c.Pedidos)
-                        .ThenInclude(p => p.StatusPedidoEnum)
                         .Include(c => c.Pedidos)
                         .ThenInclude(p => p.Produto)
                         .Select(comanda => new 
