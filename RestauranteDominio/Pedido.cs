@@ -7,6 +7,7 @@ namespace RestauranteDominio
     public class Pedido
     {
         [Key]
+
         public int PedidoId { get; set; } //PK
 
         public int ComandaId { get; set; } //FK
@@ -20,9 +21,8 @@ namespace RestauranteDominio
         public int QtdeProduto { get; set; }
         public double ValorPedido { get; set; }
 
-        public int StatusPedidoId { get; set; } //FK
-        [ForeignKey("StatusPedidoId")]
-        public StatusPedido StatusPedido { get; set; }
+        [Column("StatusPedidoId")]
+        public StatusPedidoEnum StatusPedidoEnum { get; set; } //FK
 
     }
 }

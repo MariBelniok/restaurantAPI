@@ -50,7 +50,7 @@ namespace RestauranteRepositorios.Services
                 ComandaId = comandaId,
                 QtdeProduto = model.QtdePessoasMesa,
                 ValorPedido = valorTotalPedido,
-                StatusPedidoId = (int)StatusPedidoEnum.Realizado
+                StatusPedidoEnum = StatusPedidoEnum.Realizado
             };
 
             comanda = _contexto.Comanda
@@ -62,8 +62,6 @@ namespace RestauranteRepositorios.Services
 
             _contexto.Pedido.Add(rodizio);
             await _contexto.SaveChangesAsync();
-
-            //await AtualizarValorComanda(comandaId);
         }
 
         public async Task EncerrarComanda(int comandaId)
@@ -106,7 +104,7 @@ namespace RestauranteRepositorios.Services
             var comanda = await _contexto.Comanda
                         .Where(c => c.ComandaId == comandaId)
                         .Include(c => c.Pedidos)
-                        .ThenInclude(p => p.StatusPedido)
+                        .ThenInclude(p => p.StatusPedidoEnum)
                         .Include(c => c.Pedidos)
                         .ThenInclude(p => p.Produto)
                         .Select(comanda => new
@@ -146,7 +144,7 @@ namespace RestauranteRepositorios.Services
                 ComandaId = p.ComandaId,
                 QtdeProduto = p.QtdeProduto,
                 ValorPedido = p.ValorPedido,
-                StatusPedido = p.StatusPedido
+                StatusPedidoEnum = p.StatusPedidoEnum
             }).ToList();
 
             _ = comanda ?? throw new Exception("Comanda inexistente!");
@@ -159,7 +157,7 @@ namespace RestauranteRepositorios.Services
              var comanda = await _contexto.Comanda
                         .Where(c => c.ComandaId == comandaId)
                         .Include(c => c.Pedidos)
-                        .ThenInclude(p => p.StatusPedido)
+                        .ThenInclude(p => p.StatusPedidoEnum)
                         .Include(c => c.Pedidos)
                         .ThenInclude(p => p.Produto)
                         .Select(comanda => new 
@@ -196,7 +194,7 @@ namespace RestauranteRepositorios.Services
                 ComandaId = p.ComandaId,
                 QtdeProduto = p.QtdeProduto,
                 ValorPedido = p.ValorPedido,
-                StatusPedido = p.StatusPedido
+                StatusPedidoEnum = p.StatusPedidoEnum
             }).ToList();
 
             _ = comanda ?? throw new Exception("Comanda inexistente!");

@@ -1,4 +1,4 @@
-﻿using RestauranteDominio;
+﻿using RestauranteDominio.Enums;
 
 namespace RestauranteRepositorios.Services
 {
@@ -14,7 +14,7 @@ namespace RestauranteRepositorios.Services
 
         public double ValorPedido { get; set; }
 
-        public StatusPedido StatusPedido { get; set; }
+        public StatusPedidoEnum StatusPedidoEnum { get; set; }
 
         public ListarModel Produto { get; set; }
     }

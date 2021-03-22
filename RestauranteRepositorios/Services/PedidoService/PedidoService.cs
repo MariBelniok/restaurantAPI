@@ -1,10 +1,7 @@
-﻿ using Microsoft.EntityFrameworkCore;
-using RestauranteDominio;
+﻿using RestauranteDominio;
 using RestauranteDominio.Enums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RestauranteRepositorios.Services
@@ -45,7 +42,7 @@ namespace RestauranteRepositorios.Services
                 ComandaId = comandaId,
                 QtdeProduto = model.QtdeProduto,
                 ValorPedido = valorTotalPedido,
-                StatusPedidoId = (int)StatusPedidoEnum.Realizado
+                StatusPedidoEnum = StatusPedidoEnum.Realizado
             };
 
             _contexto.Add(pedido);
@@ -73,7 +70,7 @@ namespace RestauranteRepositorios.Services
             _ = comanda ?? throw new Exception("Comanda inexistente");
 
             var pedido = _contexto.Pedido
-                    .Where(p => p.ComandaId == model.ComandaId && p.PedidoId == model.PedidoId && p.StatusPedidoId != (int)StatusPedidoEnum.Cancelado)
+                    .Where(p => p.ComandaId == model.ComandaId && p.PedidoId == model.PedidoId && p.StatusPedidoEnum != StatusPedidoEnum.Cancelado)
                     .OrderBy(p => p.PedidoId)
                     .LastOrDefault();
 
@@ -102,7 +99,7 @@ namespace RestauranteRepositorios.Services
                 throw new Exception("O rodizio não pode ser cancelado da sua comanda!");
 
             var pedido = _contexto.Pedido
-                        .Where(p => p.ComandaId == comandaId && p.PedidoId == pedidoId && p.StatusPedidoId != (int)StatusPedidoEnum.Cancelado)
+                        .Where(p => p.ComandaId == comandaId && p.PedidoId == pedidoId && p.StatusPedidoEnum != StatusPedidoEnum.Cancelado)
                         .OrderBy(p => p.PedidoId)
                         .LastOrDefault();
 
@@ -113,7 +110,7 @@ namespace RestauranteRepositorios.Services
                 .FirstOrDefault();
             _ = comanda ?? throw new Exception("Comanda inexistente");
 
-            pedido.StatusPedidoId = (int)StatusPedidoEnum.Cancelado;
+            pedido.StatusPedidoEnum = StatusPedidoEnum.Cancelado;
 
             if (pedido.ValorPedido > 0)
             {
