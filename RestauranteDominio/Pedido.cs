@@ -1,4 +1,6 @@
 ﻿using RestauranteDominio.Enums;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,12 +19,11 @@ namespace RestauranteDominio
         public int ProdutoId { get; set; } //FK
         [ForeignKey("ProdutoId")]
         public Produto Produto { get; set; }
-        
+
         public int QtdeProduto { get; set; }
         public double ValorPedido { get; set; }
 
         [Column("StatusPedidoId")]
         public StatusPedidoEnum StatusPedidoEnum { get; set; } //FK
-
     }
 }

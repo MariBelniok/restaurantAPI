@@ -15,27 +15,25 @@ namespace RestauranteApp.Controllers
             _service = service;
         }
 
-        [HttpGet("aberta/{comandaId}", Name = "aberta")]
+        [HttpGet("{comandaId}", Name = "aberta")]
         public async Task<AndamentoModel> GetComandaAberta(int comandaId)
         {
-            var comanda = await _service.BuscarComandaAberta(comandaId);
-            return comanda;
+            return await _service.BuscarComandaAberta(comandaId);
         }
 
-        [HttpGet("finalizada/{comandaId}", Name = "finalizada")]
+        [HttpGet("{comandaId}/finalizacao", Name = "finalizada")]
         public async Task<FinalizadaModel> GetComandaFinalizada(int comandaId)
         {
-            var comanda = await _service.BuscarComandaPaga(comandaId);
-            return comanda;
+            return await _service.BuscarComandaPaga(comandaId);
         }
 
         [HttpPost]
-        public async Task Post(AdicionarAtendimentoModel model)
+        public async Task<int> Post(AdicionarAtendimentoModel model)
         {
-            await _service.AdicionarComanda(model);
+            return await _service.AdicionarComanda(model);
         }
 
-        [HttpPut("pagar/{comandaId}", Name = "pagar")]
+        [HttpPost("{comandaId}/pagamento", Name = "pagar")]
         public async Task PutPagar(int comandaId)
         {
             await _service.EncerrarComanda(comandaId);

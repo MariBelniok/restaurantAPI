@@ -5,11 +5,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using RestauranteDominio;
+using System.Collections.Generic;
 
 namespace RestauranteRepositorios.Services
 {
     public class ComandaService
     {
+        const int PRODUTO_RODIZIO = 1; 
         private readonly RestauranteContexto _contexto;
         private readonly MesaService _mesaService;
         private readonly ProdutoService _produtoService;
@@ -20,56 +22,48 @@ namespace RestauranteRepositorios.Services
             _mesaService = mesaService;
             _produtoService = produtoService;
         }
-        
-        public async Task AdicionarComanda(AdicionarAtendimentoModel model)
+
+
+        public async Task<int> AdicionarComanda(AdicionarAtendimentoModel model)
         {
             model.Validar();
+
+            await _mesaService.OcuparMesa(model.MesaId);
+
+            var produto = await _produtoService.ObterProduto(PRODUTO_RODIZIO);
+            _ = produto ?? throw new Exception("Produto inexistente");
+            var valorTotalPedido = produto.ValorProduto * model.QtdePessoasMesa;
 
             var comanda = new Comanda()
             {
                 DataHoraEntrada = DateTime.Now,
                 ComandaPaga = false,
                 QtdePessoasMesa = model.QtdePessoasMesa,
-                MesaId = model.MesaId
+                Valor = valorTotalPedido,
+                MesaId = model.MesaId,
             };
-
-            await _mesaService.OcuparMesa(comanda.MesaId);
-
-            _contexto.Comanda.Add(comanda);
-            await _contexto.SaveChangesAsync();
-
-            int comandaId = comanda.ComandaId;
-
-            var produto = await _produtoService.ObterProduto(1);
-            _ = produto ?? throw new Exception("Produto inexistente");
-            var valorTotalPedido = produto.ValorProduto * model.QtdePessoasMesa;
-
-            var rodizio = new Pedido()
+            
+            comanda.Pedidos.Add(new Pedido()
             {
-                ProdutoId = 1,
-                ComandaId = comandaId,
+                ProdutoId = produto.ProdutoId,
                 QtdeProduto = model.QtdePessoasMesa,
                 ValorPedido = valorTotalPedido,
                 StatusPedidoEnum = StatusPedidoEnum.Realizado
-            };
+            });
 
-            comanda = _contexto.Comanda
-                    .Where(c => comandaId == c.ComandaId)
-                    .FirstOrDefault();
-
-            comanda.Valor += rodizio.ValorPedido;
-           
-
-            _contexto.Pedido.Add(rodizio);
+            _contexto.Add(comanda);
             await _contexto.SaveChangesAsync();
+
+            return comanda.ComandaId;
         }
 
         public async Task EncerrarComanda(int comandaId)
         {
-            var comanda = _contexto.Comanda
-                        .Where(c => c.ComandaId == comandaId && c.ComandaPaga == false)
-                        .OrderBy(c => c.ComandaId)
-                        .FirstOrDefault();
+            var comanda = await _contexto
+                .Comanda
+                .Where(c => c.ComandaId == comandaId && c.ComandaPaga == false)
+                .OrderBy(c => c.ComandaId)
+                .FirstOrDefaultAsync();
 
             _ = comanda ?? throw new Exception("Comanda já esta paga ou inexistente!");
 
@@ -83,39 +77,45 @@ namespace RestauranteRepositorios.Services
 
         public async Task CancelarComanda(int comandaId)
         {
-            var comanda = _contexto.Comanda
-                        .Where(c => c.ComandaId == comandaId && c.ComandaPaga == false)
-                        .OrderBy(c => c.ComandaId)
-                        .LastOrDefault();
+
+            var comanda = await _contexto
+                .Comanda
+                .Where(c => c.ComandaId == comandaId && c.ComandaPaga == false)
+                .OrderBy(c => c.ComandaId)
+                .LastOrDefaultAsync();
+
+            await _mesaService.DesocuparMesa(comanda.MesaId);
 
             _ = comanda ?? throw new Exception("Comanda já esta paga ou inexistente!");
+
             comanda.DataHoraSaida = DateTime.Now;
             comanda.Valor = 0;
             comanda.ComandaPaga = true;
 
             await _contexto.SaveChangesAsync();
-
-            await _mesaService.DesocuparMesa(comanda.MesaId);
         }
 
         public async Task<FinalizadaModel> BuscarComandaPaga(int comandaId)
         {
 
-            var comanda = await _contexto.Comanda
-                        .Where(c => c.ComandaId == comandaId)
-                        .Include(c => c.Pedidos)
-                        .ThenInclude(p => p.Produto)
-                        .Select(comanda => new
-                        {
-                            comanda.ComandaId,
-                            comanda.MesaId,
-                            comanda.DataHoraEntrada,
-                            comanda.DataHoraSaida,
-                            comanda.Valor,
-                            comanda.ComandaPaga,
-                            comanda.QtdePessoasMesa,
-                            comanda.Pedidos
-                        }).FirstOrDefaultAsync();
+            var comanda = await _contexto
+                .Comanda
+                .Where(c => c.ComandaId == comandaId)
+                .Include(c => c.Pedidos)
+                .ThenInclude(p => p.Produto)
+                .Select(comanda => new
+                {
+                    comanda.ComandaId,
+                    comanda.MesaId,
+                    comanda.DataHoraEntrada,
+                    comanda.DataHoraSaida,
+                    comanda.Valor,
+                    comanda.ComandaPaga,
+                    comanda.QtdePessoasMesa,
+                    comanda.Pedidos
+                }).FirstOrDefaultAsync();
+
+            _ = comanda ?? throw new Exception("Comanda inexistente!");
 
             var res = new FinalizadaModel
             {
@@ -145,27 +145,28 @@ namespace RestauranteRepositorios.Services
                 StatusPedidoEnum = p.StatusPedidoEnum
             }).ToList();
 
-            _ = comanda ?? throw new Exception("Comanda inexistente!");
-
             return res;
         }
 
         public async Task<AndamentoModel> BuscarComandaAberta(int comandaId)
         {
-             var comanda = await _contexto.Comanda
-                        .Where(c => c.ComandaId == comandaId)
-                        .Include(c => c.Pedidos)
-                        .ThenInclude(p => p.Produto)
-                        .Select(comanda => new 
-                        {
-                            comanda.ComandaId,
-                            comanda.MesaId,
-                            comanda.DataHoraEntrada,
-                            comanda.Valor,
-                            comanda.ComandaPaga,
-                            comanda.QtdePessoasMesa,
-                            comanda.Pedidos
-                        }).OrderBy(c => c.ComandaId).FirstOrDefaultAsync();
+             var comanda = await _contexto
+                .Comanda
+                .Where(c => c.ComandaId == comandaId)
+                .Include(c => c.Pedidos)
+                .ThenInclude(p => p.Produto)
+                .Select(comanda => new 
+                {
+                    comanda.ComandaId,
+                    comanda.MesaId,
+                    comanda.DataHoraEntrada,
+                    comanda.Valor,
+                    comanda.ComandaPaga,
+                    comanda.QtdePessoasMesa,
+                    comanda.Pedidos
+                }).OrderBy(c => c.ComandaId).FirstOrDefaultAsync();
+
+            _ = comanda ?? throw new Exception("Comanda inexistente!");
 
             var res = new AndamentoModel
             {
@@ -192,8 +193,6 @@ namespace RestauranteRepositorios.Services
                 ValorPedido = p.ValorPedido,
                 StatusPedidoEnum = p.StatusPedidoEnum
             }).ToList();
-
-            _ = comanda ?? throw new Exception("Comanda inexistente!");
 
             return res;
         }

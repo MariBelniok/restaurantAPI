@@ -19,15 +19,13 @@ namespace RestauranteApp.Controllers
         [HttpGet("menu")]
         public async Task<List<ListarModel>> GetMenu()
         {
-            var menuProdutos = await _service.ListarMenu();
-            return menuProdutos;
+            return await _service.ListarMenu();
         }
 
         [HttpGet]
         public async Task<List<ListarModel>> GetProdutos()
         {
-            var menuProdutos = await _service.BuscarProdutoDisponivel();
-            return menuProdutos;
+            return await _service.BuscarProdutoDisponivel();
         }
     }
 }

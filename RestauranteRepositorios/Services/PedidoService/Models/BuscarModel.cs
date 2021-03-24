@@ -1,4 +1,5 @@
-﻿using RestauranteDominio.Enums;
+﻿using RestauranteDominio;
+using RestauranteDominio.Enums;
 
 namespace RestauranteRepositorios.Services
 {

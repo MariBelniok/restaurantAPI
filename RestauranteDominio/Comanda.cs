@@ -1,6 +1,7 @@
 ﻿using RestauranteDominio;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,9 +17,13 @@ namespace RestauranteDominio
         public bool ComandaPaga { get; set; }
         public int QtdePessoasMesa { get; set; }
         public ICollection<Pedido> Pedidos { get; set; }
-
         public int MesaId { get; set; } //FK
         [ForeignKey("MesaId")]
         public Mesa Mesa { get; set; }
+
+        public Comanda()
+        {
+            this.Pedidos = new Collection<Pedido>();
+        }
     }
 }

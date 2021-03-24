@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RestauranteApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class PedidoController : ControllerBase
     {
@@ -18,19 +18,19 @@ namespace RestauranteApp.Controllers
             _service = service;
         }
 
-        [HttpPost("{comandaId}")]
-        public async Task Post(AdicionarNovoModel model, int comandaId)
+        [HttpPost("comanda/{comandaId}/[controller]")]
+        public async Task<int> Post(AdicionarNovoModel model, int comandaId)
         {
-            await _service.AdicionarPedido(model, comandaId);
+            return await _service.AdicionarPedido(model, comandaId);
         }
 
-        [HttpPut("{comandaId}/{pedidoId}")]
+        [HttpPut("comanda/{comandaId}/[controller]/{pedidoId}")]
         public async Task PutAtualizar(AtualizarModel model)
         {
             await _service.AtualizarPedido(model);
         }
 
-        [HttpDelete("{comandaId}/{pedidoId}")]
+        [HttpDelete("comanda/{comandaId}/[controller]/{pedidoId}")]
         public async Task PutDelete(int comandaId, int pedidoId)
         {
             await _service.RemoverPedido(comandaId, pedidoId);

@@ -18,37 +18,36 @@ namespace RestauranteRepositorios.Services.ServiceMesa
 
         public async Task OcuparMesa(int mesaId)
         {
-            var mesa = _contexto.Mesa
-                        .Where(m => m.MesaId == mesaId && m.MesaOcupada == false)
-                        .FirstOrDefault();
+            var mesa = await _contexto
+                .Mesa
+                .Where(m => m.MesaId == mesaId && m.MesaOcupada == false)
+                .FirstOrDefaultAsync();
 
             _ = mesa ?? throw new Exception("Mesa inexistente ou ocupada");
 
             mesa.MesaOcupada = true;
-
-            await _contexto.SaveChangesAsync();
         }
 
         public async Task DesocuparMesa(int mesaId)
         {
-            var mesa = _contexto.Mesa
-                    .Where(m => m.MesaId == mesaId && m.MesaOcupada == true)
-                    .FirstOrDefault();
+            var mesa = await _contexto
+                .Mesa
+                .Where(m => m.MesaId == mesaId && m.MesaOcupada == true)
+                .FirstOrDefaultAsync();
 
             _ = mesa ?? throw new Exception("Mesa inexistente ou ocupada");
             
             mesa.MesaOcupada = false;
-
-            await _contexto.SaveChangesAsync();
         }
 
         public async Task<List<ObterId>> BuscarMesasDisponiveis()
         {
-            return await _contexto.Mesa
-                    .Where(m => m.MesaOcupada != true)
-                    .Select(m => new ObterId{ 
-                        MesaId = m.MesaId
-                    }).ToListAsync();
+            return await _contexto
+                .Mesa
+                .Where(m => m.MesaOcupada != true)
+                .Select(m => new ObterId{ 
+                    MesaId = m.MesaId
+                }).ToListAsync();
         }
     }
 }
