@@ -6,7 +6,7 @@ using RestauranteRepositorios.Services.ServiceMesa.Models;
 
 namespace RestauranteApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class MesaController : ControllerBase
     {
@@ -18,9 +18,15 @@ namespace RestauranteApp.Controllers
         }
 
         [HttpGet]
-        public async Task<List<ObterId>> Get()
+        public async Task<List<ObterId>> MesaDisponivel()
         {
              return await _service.BuscarMesasDisponiveis();
+        }
+
+        [HttpGet("ocupada")]
+        public async Task<List<ObterId>> MesaOcupada()
+        {
+            return await _service.BuscarMesasOcupadas();
         }
     }
 }

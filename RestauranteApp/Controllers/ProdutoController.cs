@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RestauranteApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ProdutoController : ControllerBase
     {

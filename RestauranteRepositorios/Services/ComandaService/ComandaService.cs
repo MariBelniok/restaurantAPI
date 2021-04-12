@@ -57,11 +57,13 @@ namespace RestauranteRepositorios.Services
             return comanda.ComandaId;
         }
 
-        public async Task EncerrarComanda(int comandaId)
+        public async Task<FinalizadaModel> EncerrarComanda(int comandaId)
         {
             var comanda = await _contexto
                 .Comanda
                 .Where(c => c.ComandaId == comandaId && c.ComandaPaga == false)
+                .Include(c => c.Pedidos)
+                .ThenInclude(p => p.Produto)
                 .OrderBy(c => c.ComandaId)
                 .FirstOrDefaultAsync();
 
@@ -73,49 +75,6 @@ namespace RestauranteRepositorios.Services
             comanda.ComandaPaga = true;
 
             await _contexto.SaveChangesAsync();
-        }
-
-        public async Task CancelarComanda(int comandaId)
-        {
-
-            var comanda = await _contexto
-                .Comanda
-                .Where(c => c.ComandaId == comandaId && c.ComandaPaga == false)
-                .OrderBy(c => c.ComandaId)
-                .LastOrDefaultAsync();
-
-            await _mesaService.DesocuparMesa(comanda.MesaId);
-
-            _ = comanda ?? throw new Exception("Comanda já esta paga ou inexistente!");
-
-            comanda.DataHoraSaida = DateTime.Now;
-            comanda.Valor = 0;
-            comanda.ComandaPaga = true;
-
-            await _contexto.SaveChangesAsync();
-        }
-
-        public async Task<FinalizadaModel> BuscarComandaPaga(int comandaId)
-        {
-
-            var comanda = await _contexto
-                .Comanda
-                .Where(c => c.ComandaId == comandaId)
-                .Include(c => c.Pedidos)
-                .ThenInclude(p => p.Produto)
-                .Select(comanda => new
-                {
-                    comanda.ComandaId,
-                    comanda.MesaId,
-                    comanda.DataHoraEntrada,
-                    comanda.DataHoraSaida,
-                    comanda.Valor,
-                    comanda.ComandaPaga,
-                    comanda.QtdePessoasMesa,
-                    comanda.Pedidos
-                }).FirstOrDefaultAsync();
-
-            _ = comanda ?? throw new Exception("Comanda inexistente!");
 
             var res = new FinalizadaModel
             {

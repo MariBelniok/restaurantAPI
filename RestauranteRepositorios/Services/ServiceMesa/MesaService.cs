@@ -42,12 +42,25 @@ namespace RestauranteRepositorios.Services.ServiceMesa
 
         public async Task<List<ObterId>> BuscarMesasDisponiveis()
         {
-            return await _contexto
+            var mesas = await _contexto
                 .Mesa
                 .Where(m => m.MesaOcupada != true)
                 .Select(m => new ObterId{ 
                     MesaId = m.MesaId
                 }).ToListAsync();
+            return mesas;
+        }
+
+        public async Task<List<ObterId>> BuscarMesasOcupadas()
+        {
+            var mesas = await _contexto
+                .Mesa
+                .Where(m => m.MesaOcupada)
+                .Select(m => new ObterId
+                {
+                    MesaId = m.MesaId
+                }).ToListAsync();
+            return mesas;
         }
     }
 }

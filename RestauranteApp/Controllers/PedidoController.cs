@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestauranteDominio.Enums;
 using RestauranteRepositorios.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RestauranteApp.Controllers
 {
-    [Route("api/")]
+    [Route("")]
     [ApiController]
     public class PedidoController : ControllerBase
     {
@@ -18,6 +19,12 @@ namespace RestauranteApp.Controllers
             _service = service;
         }
 
+        [HttpGet("comanda/{comandaId}/[controller]")]
+        public async Task<List<BuscarModel>> Buscar(int comandaId)
+        {
+            return await _service.Buscar(comandaId);
+        }
+
         [HttpPost("comanda/{comandaId}/[controller]")]
         public async Task<int> Post(AdicionarNovoModel model, int comandaId)
         {
@@ -25,15 +32,15 @@ namespace RestauranteApp.Controllers
         }
 
         [HttpPut("comanda/{comandaId}/[controller]/{pedidoId}")]
-        public async Task PutAtualizar(AtualizarModel model)
+        public async Task<BuscarModel> PutAtualizar(AtualizarModel model)
         {
-            await _service.AtualizarPedido(model);
+            return await _service.AtualizarPedido(model);
         }
 
         [HttpDelete("comanda/{comandaId}/[controller]/{pedidoId}")]
-        public async Task PutDelete(int comandaId, int pedidoId)
+        public async Task<StatusPedidoEnum> PutDelete(int comandaId, int pedidoId)
         {
-            await _service.RemoverPedido(comandaId, pedidoId);
+            return await _service.RemoverPedido(comandaId, pedidoId);
         }
     }
 }

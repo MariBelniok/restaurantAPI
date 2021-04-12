@@ -2,6 +2,7 @@
 using RestauranteDominio;
 using RestauranteDominio.Enums;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace RestauranteRepositorios.Services
     public class PedidoService
     {
         const int PRODUTO_RODIZIO = 1;
+
         private readonly RestauranteContexto _contexto;
         private readonly ProdutoService _produtoService;
 
@@ -19,6 +21,27 @@ namespace RestauranteRepositorios.Services
             _produtoService = produtoService;
         }
 
+        public async Task<List<BuscarModel>> Buscar(int comandaId)
+        {
+            return await _contexto.Pedido
+                .Where(p => p.ComandaId == comandaId)
+                .Select(p => new BuscarModel
+                {
+                    ComandaId = p.ComandaId,
+                    PedidoId = p.PedidoId,
+                    ProdutoId = p.ProdutoId,
+                    Produto = new ListarModel
+                    {
+                        ProdutoId = p.ProdutoId,
+                        NomeProduto = p.Produto.NomeProduto,
+                        ValorProduto = p.Produto.ValorProduto,
+                        QtdePermitida = p.Produto.QtdePermitida,
+                    },
+                    QtdeProduto = p.QtdeProduto,
+                    StatusPedidoEnum = p.StatusPedidoEnum,
+                    ValorPedido = p.ValorPedido
+                }).ToListAsync();
+        }
         public async Task<int> AdicionarPedido(AdicionarNovoModel model, int comandaId)
         {
             model.Validar();
@@ -52,7 +75,7 @@ namespace RestauranteRepositorios.Services
                 ComandaId = comandaId,
                 QtdeProduto = model.QtdeProduto,
                 ValorPedido = valorTotalPedido,
-                StatusPedidoEnum = StatusPedidoEnum.Realizado
+                StatusPedidoEnum = StatusPedidoEnum.Realizado,               
             };
 
             _contexto.Add(pedido);
@@ -67,9 +90,9 @@ namespace RestauranteRepositorios.Services
             return pedido.PedidoId;
         }
 
-        public async Task AtualizarPedido(AtualizarModel model)
+        public async Task<BuscarModel> AtualizarPedido(AtualizarModel model)
         {
-            if (model.PedidoId == PRODUTO_RODIZIO)
+            if (model.ProdutoId == PRODUTO_RODIZIO)
                 throw new Exception("O rodizio não pode ser editado!");
 
             var produto = await _produtoService.ObterProduto(model.ProdutoId);
@@ -79,15 +102,21 @@ namespace RestauranteRepositorios.Services
             var comanda = await _contexto
                 .Comanda
                 .Where(c => model.ComandaId == c.ComandaId)
+                .Include(c => c.Pedidos)
                 .FirstOrDefaultAsync();
             _ = comanda ?? throw new Exception("Comanda inexistente");
 
-            var pedido = await _contexto
-                .Pedido
-                .Where(p => p.ComandaId == model.ComandaId && p.PedidoId == model.PedidoId && p.StatusPedidoEnum != StatusPedidoEnum.Cancelado)
-                .FirstOrDefaultAsync();
+            var pedido = comanda.Pedidos
+                .Where(p => p.PedidoId == model.PedidoId && p.StatusPedidoEnum != StatusPedidoEnum.Cancelado)
+                .FirstOrDefault();
+            _ = pedido ?? throw new Exception("Pedido inválido.");
 
-            _ = pedido ?? throw new Exception("Pedido inválido. Só é possivel atualizar o ultimo pedido realizado e que não esteja cancelado!");
+            var ultimoPedido = comanda.Pedidos
+                .OrderBy(p => p.PedidoId)
+                .LastOrDefault();
+
+            if (ultimoPedido != pedido)
+                throw new Exception("Só é possivel atualizar o ultimo pedido realizado.");
 
             if (!QtdeValida(comanda.QtdePessoasMesa, model.QtdeProduto, produto.QtdePermitida))
                 throw new Exception("Quantidade de items escolhido invalida! ");
@@ -104,25 +133,40 @@ namespace RestauranteRepositorios.Services
             pedido.ValorPedido = valorTotalPedido;
 
             await _contexto.SaveChangesAsync();
+
+            return new BuscarModel
+            { 
+                QtdeProduto = pedido.QtdeProduto, 
+                ValorPedido = pedido.ValorPedido,
+                PedidoId = pedido.PedidoId,
+                ComandaId = pedido.ComandaId
+            };
         }
 
-        public async Task RemoverPedido(int comandaId, int pedidoId)
+        public async Task<StatusPedidoEnum> RemoverPedido(int comandaId, int pedidoId)
         {
-            if(pedidoId == PRODUTO_RODIZIO)
-                throw new Exception("O rodizio não pode ser cancelado da sua comanda!");
-
-            var pedido = await _contexto
-                .Pedido
-                .Where(p => p.ComandaId == comandaId && p.PedidoId == pedidoId && p.StatusPedidoEnum != StatusPedidoEnum.Cancelado)
-                .FirstOrDefaultAsync();
-
-            _ = pedido ?? throw new Exception("Pedido inválido. Só é possivel cancelar o ultimo pedido realizado e que não esteja cancelado!");
-
             var comanda = await _contexto
                 .Comanda
                 .Where(c => comandaId == c.ComandaId)
+                .Include(c => c.Pedidos)
                 .FirstOrDefaultAsync();
             _ = comanda ?? throw new Exception("Comanda inexistente");
+
+            var pedido = comanda.Pedidos
+                .Where(p => p.PedidoId == pedidoId && p.StatusPedidoEnum != StatusPedidoEnum.Cancelado)
+                .FirstOrDefault();
+
+            _ = pedido ?? throw new Exception("Pedido inválido. Só é possivel cancelar o ultimo pedido realizado e que não esteja cancelado!");
+
+            if(pedido.ProdutoId == PRODUTO_RODIZIO)
+                throw new Exception("O rodizio não pode ser cancelado!");
+
+            var ultimoPedido = comanda.Pedidos
+                .OrderBy(p => p.PedidoId)
+                .LastOrDefault();
+
+            if (ultimoPedido != pedido)
+                throw new Exception("Só é possivel atualizar o ultimo pedido realizado.");
 
             pedido.StatusPedidoEnum = StatusPedidoEnum.Cancelado;
 
@@ -132,6 +176,8 @@ namespace RestauranteRepositorios.Services
             }
 
             await _contexto.SaveChangesAsync();
+
+            return pedido.StatusPedidoEnum;
         }
 
         //CALCULA A QUANTIDADE VALIDA DE ITEM POR PEDIDO

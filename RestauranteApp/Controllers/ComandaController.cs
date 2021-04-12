@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace RestauranteApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ComandaController : ControllerBase
     {
@@ -21,28 +21,16 @@ namespace RestauranteApp.Controllers
             return await _service.BuscarComandaAberta(comandaId);
         }
 
-        [HttpGet("{comandaId}/finalizacao", Name = "finalizada")]
-        public async Task<FinalizadaModel> GetComandaFinalizada(int comandaId)
-        {
-            return await _service.BuscarComandaPaga(comandaId);
-        }
-
-        [HttpPost]
+        [HttpPost()]
         public async Task<int> Post(AdicionarAtendimentoModel model)
         {
             return await _service.AdicionarComanda(model);
         }
 
         [HttpPost("{comandaId}/pagamento", Name = "pagar")]
-        public async Task PutPagar(int comandaId)
+        public async Task<FinalizadaModel> PutPagar(int comandaId)
         {
-            await _service.EncerrarComanda(comandaId);
-        }
-
-        [HttpDelete("{comandaId}", Name = "cancelar")]
-        public async Task PutCancelar(int comandaId)
-        {
-            await _service.CancelarComanda(comandaId);
+            return await _service.EncerrarComanda(comandaId);
         }
     }
 }
