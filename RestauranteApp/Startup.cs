@@ -30,6 +30,7 @@ namespace RestauranteApp
             services.AddScoped<PedidoService>();
             services.AddScoped<ProdutoService>();
             services.AddScoped<MesaService>();
+            services.AddScoped<GerenciaService>();
 
             services.AddControllers();;
 
