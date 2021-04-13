@@ -2,8 +2,8 @@
 { 
     public class ListarModel
     {
-        public int ProdutoId { get; set; } 
-
+        public int ProdutoId { get; set; }
+        public string ImagemProduto { get; set; }
         public string NomeProduto { get; set; }
 
         public double ValorProduto { get; set; }

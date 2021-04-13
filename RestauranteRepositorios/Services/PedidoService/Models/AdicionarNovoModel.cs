@@ -8,6 +8,7 @@ namespace RestauranteRepositorios.Services
         public int ComandaId { get; set; }
         public int QtdeProduto { get; set; }
         public double ValorPedido { get; set; }
+        public DateTime DataHoraPedido { get; set; }
 
         public void Validar()
         {

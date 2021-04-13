@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestauranteDominio.Enums;
 using RestauranteRepositorios.Services;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,18 @@ namespace RestauranteApp.Controllers
         public async Task<InformacoesModel> ObterMesa(int mesaId)
         {
             return await _service.ObterInformacoesMesas(mesaId);
+        }
+
+        [HttpDelete("{mesaId}/cancelar")]
+        public async Task<InformacoesModel> CancelarComanda(int mesaId)
+        {
+            return await _service.CancelarComanda(mesaId);
+        }
+
+        [HttpDelete("{comandaId}/pedido/{pedidoId}")]
+        public async Task<StatusPedidoEnum> PutDelete(int comandaId, int pedidoId)
+        {
+            return await _service.CancelarPedido(comandaId, pedidoId);
         }
     }
 }

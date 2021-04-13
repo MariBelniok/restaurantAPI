@@ -33,13 +33,15 @@ namespace RestauranteRepositorios.Services
                     Produto = new ListarModel
                     {
                         ProdutoId = p.ProdutoId,
+                        ImagemProduto = p.Produto.ImagemProduto,
                         NomeProduto = p.Produto.NomeProduto,
                         ValorProduto = p.Produto.ValorProduto,
                         QtdePermitida = p.Produto.QtdePermitida,
                     },
                     QtdeProduto = p.QtdeProduto,
                     StatusPedidoEnum = p.StatusPedidoEnum,
-                    ValorPedido = p.ValorPedido
+                    ValorPedido = p.ValorPedido,
+                    DataHoraPedido = p.DataHoraPedido
                 }).ToListAsync();
         }
         public async Task<int> AdicionarPedido(AdicionarNovoModel model, int comandaId)
@@ -75,7 +77,8 @@ namespace RestauranteRepositorios.Services
                 ComandaId = comandaId,
                 QtdeProduto = model.QtdeProduto,
                 ValorPedido = valorTotalPedido,
-                StatusPedidoEnum = StatusPedidoEnum.Realizado,               
+                StatusPedidoEnum = StatusPedidoEnum.Realizado,
+                DataHoraPedido = DateTime.Now
             };
 
             _contexto.Add(pedido);

@@ -42,13 +42,14 @@ namespace RestauranteRepositorios.Services
                 Valor = valorTotalPedido,
                 MesaId = model.MesaId,
             };
-            
+
             comanda.Pedidos.Add(new Pedido()
             {
                 ProdutoId = produto.ProdutoId,
                 QtdeProduto = model.QtdePessoasMesa,
                 ValorPedido = valorTotalPedido,
-                StatusPedidoEnum = StatusPedidoEnum.Realizado
+                StatusPedidoEnum = StatusPedidoEnum.Realizado,
+                DataHoraPedido = DateTime.Now
             });
 
             _contexto.Add(comanda);
@@ -94,14 +95,16 @@ namespace RestauranteRepositorios.Services
                 Produto = new ListarModel
                 {
                     ProdutoId = p.ProdutoId,
+                    ImagemProduto = p.Produto.ImagemProduto,
                     NomeProduto = p.Produto.NomeProduto,
                     ValorProduto = p.Produto.ValorProduto,
-                    QtdePermitida = p.Produto.QtdePermitida,
+                    QtdePermitida = p.Produto.QtdePermitida,  
                 },
                 ComandaId = p.ComandaId,
                 QtdeProduto = p.QtdeProduto,
                 ValorPedido = p.ValorPedido,
-                StatusPedidoEnum = p.StatusPedidoEnum
+                StatusPedidoEnum = p.StatusPedidoEnum,
+                DataHoraPedido = p.DataHoraPedido
             }).ToList();
 
             return res;
@@ -143,6 +146,7 @@ namespace RestauranteRepositorios.Services
                 Produto = new ListarModel
                 {
                     ProdutoId = p.ProdutoId,
+                    ImagemProduto = p.Produto.ImagemProduto,
                     NomeProduto = p.Produto.NomeProduto,
                     ValorProduto = p.Produto.ValorProduto,
                     QtdePermitida = p.Produto.QtdePermitida,
@@ -150,7 +154,8 @@ namespace RestauranteRepositorios.Services
                 ComandaId = p.ComandaId,
                 QtdeProduto = p.QtdeProduto,
                 ValorPedido = p.ValorPedido,
-                StatusPedidoEnum = p.StatusPedidoEnum
+                StatusPedidoEnum = p.StatusPedidoEnum,
+                DataHoraPedido = p.DataHoraPedido
             }).ToList();
 
             return res;

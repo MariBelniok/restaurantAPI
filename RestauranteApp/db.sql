@@ -1,5 +1,5 @@
 CREATE TABLE StatusPedido (
-  StatusId int PRIMARY KEY,
+  StatusPedidoId int PRIMARY KEY,
   Descricao varchar(20) NOT NULL
 );
 
@@ -8,7 +8,8 @@ CREATE TABLE Produto (
   ImagemProduto varchar(255),
   NomeProduto varchar(255) NOT NULL,
   ValorProduto float NOT NULL,
-  Disponivel boolean NOT NULL
+  QtdePermitida int NOT NULL,
+  Disponivel bit NOT NULL
 );
 
 CREATE TABLE Pedido (
@@ -17,13 +18,14 @@ CREATE TABLE Pedido (
   ComandaId int NOT NULL,
   ValorPedido float NOT NULL,
   QtdeProduto int NOT NULL,
-  StatusPedido int NOT NULL
+  StatusPedidoId int NOT NULL,
+  DataHoraPedido datetime NOT NULL
 );
 
 CREATE TABLE Mesa (
   MesaId int PRIMARY KEY,
-  CapacidadePessoasMesa int NOT NULL,
-  MesaOcupada boolean NOT NULL
+  Capacidade int NOT NULL,
+  MesaOcupada bit NOT NULL
 );
 
 CREATE TABLE Comanda (
@@ -32,7 +34,7 @@ CREATE TABLE Comanda (
   DataHoraEntrada datetime NOT NULL,
   DataHoraSaida datetime null,
   Valor float NOT NULL,
-  ComandaPaga boolean,
+  ComandaPaga bit,
   QtdePessoasMesa int NOT NULL
 );
 
@@ -40,23 +42,23 @@ ALTER TABLE Pedido ADD CONSTRAINT FK_ComandaId FOREIGN KEY (ComandaId) REFERENCE
 
 ALTER TABLE Pedido ADD CONSTRAINT FK_ProdutoId FOREIGN KEY (ProdutoId) REFERENCES Produto(ProdutoId);
 
-ALTER TABLE Pedido ADD CONSTRAINT FK_StatusId FOREIGN KEY (StatusPedido) REFERENCES StatusPedido(StatusId);
+ALTER TABLE Pedido ADD CONSTRAINT FK_StatusPedidoId FOREIGN KEY (StatusPedidoId) REFERENCES StatusPedido(StatusPedidoId);
 
 ALTER TABLE Comanda ADD CONSTRAINT FK_MesaId FOREIGN KEY (MesaId) REFERENCES Mesa(MesaId);
 
 
-INSERT INTO Produto (ProdutoId, ImagemProduto, NomeProduto, ValorProduto, Disponivel)
-   VALUES  (1, '', 'Rodizio', '70.00', 'True'),
-           (2, '', 'Yakissoba', '0.00', 'True'),
-           (3, '', 'Temaki', '0.00', 'True'),
-           (4, '', 'Urumaki', '0.00', 'True'),
-           (6, '', 'Hot Holl', '0.00', 'True'),
-           (7, '', 'Sashimi', '0.00', 'True'),
-           (8, '', 'Suco Natual', '10.00', 'True'),
-           (9, '', 'Refrigerante Lata', '5.00', 'True'),
-           (10, '', 'Sorvete', '15.00', 'True')
+INSERT INTO Produto (ProdutoId, ImagemProduto, NomeProduto, ValorProduto, QtdePermitida, Disponivel)
+   VALUES  (1, 'https://images.unsplash.com/photo-1553944384-ffdc4fd8f2fa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80', 'Rodizio', '70.00', 4, 'True'),
+           (2, 'https://cdn.shortpixel.ai/client/to_avif,q_glossy,ret_img,w_620/https://blog.bomsabor.com.br/wp-content/uploads/2017/09/download.jpg', 'Yakissoba', '0.00', 2, 'True'),
+           (3, 'https://cheftime-bucket.s3.sa-east-1.amazonaws.com/storage/imported/temaki-de-salmao-com-cream-cheese-e-cebolinha-imagem-menu-destaque-7f202c2ae7%402x.jpg', 'Temaki', '0.00', 4, 'True'),
+           (4, 'https://lojanakayoshi.com.br/wp-content/uploads/2016/11/19-Sushi-de-Salm%C3%A3o-Grelhado-G.jpg', 'Urumaki', '0.00', 8, 'True'),
+           (6, 'https://blogsakura.com.br/wp-content/uploads/2016/09/BLOG_receitas_hotroll.jpg', 'Hot Holl', '0.00', 8, 'True'),
+           (7, 'https://www.djapa.com.br/wp-content/uploads/2020/07/peixe-cru.jpg', 'Sashimi', '0.00', 8, 'True'),
+           (8, 'https://www.receiteria.com.br/wp-content/uploads/receitas-de-suco-1200x774.jpg', 'Suco Natural', '10.00', 4, 'True'),
+           (9, 'https://boomburgers.com.br/wp-content/uploads/2020/08/refrigerantes-lata-350ml-min.jpg', 'Refrigerante Lata', '5.00', 4, 'True'),
+           (10, 'https://img.itdg.com.br/tdg/images/blog/uploads/2019/01/Casquinha-de-sorvete.jpg', 'Sorvete', '15.00', 4, 'True')
 
-INSERT INTO Mesa (MesaId, CapacidadePessoasMesa, MesaOcupada)
+INSERT INTO Mesa (MesaId, Capacidade, MesaOcupada)
     VALUES (1, 4, 'False'),
            (2, 4, 'False'),
            (3, 4, 'False'),
@@ -74,6 +76,6 @@ INSERT INTO Mesa (MesaId, CapacidadePessoasMesa, MesaOcupada)
            (15, 4, 'False'),
            (16, 4, 'False')
 
-INSERT INTO StatusPedido (StatusId, Descricao)
+INSERT INTO StatusPedido (StatusPedidoId, Descricao)
     VALUES (1, 'Entregue'),
            (2, 'Cancelado')

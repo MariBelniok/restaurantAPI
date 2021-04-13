@@ -22,6 +22,7 @@ namespace RestauranteRepositorios.Services
                 .Select(a => new ListarModel
                 {
                     NomeProduto = a.NomeProduto,
+                    ImagemProduto = a.ImagemProduto,
                     ProdutoId = a.ProdutoId,
                     ValorProduto = a.ValorProduto,
                     QtdePermitida = a.QtdePermitida
@@ -39,6 +40,7 @@ namespace RestauranteRepositorios.Services
                 .Select(a => new ListarModel
                 {
                     NomeProduto = a.NomeProduto,
+                    ImagemProduto = a.ImagemProduto,
                     ProdutoId = a.ProdutoId,
                     ValorProduto = a.ValorProduto,
                     QtdePermitida = a.QtdePermitida
@@ -57,6 +59,7 @@ namespace RestauranteRepositorios.Services
                         .Select(p => new ListarModel()
                         {
                             ProdutoId = p.ProdutoId,
+                            ImagemProduto = p.ImagemProduto,
                             NomeProduto = p.NomeProduto,
                             ValorProduto = p.ValorProduto,
                             QtdePermitida = p.QtdePermitida

@@ -1,5 +1,6 @@
 ﻿using RestauranteDominio;
 using RestauranteDominio.Enums;
+using System;
 
 namespace RestauranteRepositorios.Services
 {
@@ -16,6 +17,7 @@ namespace RestauranteRepositorios.Services
         public double ValorPedido { get; set; }
 
         public StatusPedidoEnum StatusPedidoEnum { get; set; }
+        public DateTime DataHoraPedido { get; set; }
 
         public ListarModel Produto { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RestauranteDominio.Enums;
 using RestauranteRepositorios.Services.ServiceMesa;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace RestauranteRepositorios.Services
 {
     public class GerenciaService
     {
+        const int PRODUTO_RODIZIO = 1;
+
         private readonly RestauranteContexto _contexto;
         private readonly MesaService _mesaService;
 
@@ -84,20 +87,22 @@ namespace RestauranteRepositorios.Services
                 ComandaId = p.ComandaId,
                 QtdeProduto = p.QtdeProduto,
                 ValorPedido = p.ValorPedido,
-                StatusPedidoEnum = p.StatusPedidoEnum
+                StatusPedidoEnum = p.StatusPedidoEnum,
+                DataHoraPedido = p.DataHoraPedido
             }).ToList();
 
             return res;
         }
 
-        public async Task<InformacoesModel> CancelarComanda(int comandaId)
+        public async Task<InformacoesModel> CancelarComanda(int mesaId)
         {
             var comanda = await _contexto
                 .Comanda
-                .Where(c => c.ComandaId == comandaId && c.ComandaPaga == false)
+                .Where(c => c.MesaId == mesaId && c.ComandaPaga == false)
                 .Include(c => c.Pedidos)
                 .ThenInclude(p => p.Produto)
-                .OrderBy(c => c.ComandaId)
+                .Include(c => c.Mesa)
+                .OrderByDescending(c => c.ComandaId)
                 .FirstOrDefaultAsync();
 
             _ = comanda ?? throw new Exception("Comanda já esta paga ou inexistente!");
@@ -119,9 +124,63 @@ namespace RestauranteRepositorios.Services
                 Valor = comanda.Valor,
                 ComandaPaga = comanda.ComandaPaga,
                 QtdePessoasMesa = comanda.QtdePessoasMesa,
+                Mesa = new Completa
+                {
+                    MesaId = comanda.MesaId,
+                    Capacidade = comanda.Mesa.Capacidade,
+                    MesaOcupada = comanda.Mesa.MesaOcupada
+                }
             };
 
+            res.Pedidos = comanda.Pedidos.Select(p => new BuscarModel
+            {
+                PedidoId = p.PedidoId,
+                ProdutoId = p.ProdutoId,
+                Produto = new ListarModel
+                {
+                    ProdutoId = p.ProdutoId,
+                    NomeProduto = p.Produto.NomeProduto,
+                    ValorProduto = p.Produto.ValorProduto,
+                    QtdePermitida = p.Produto.QtdePermitida,
+                },
+                ComandaId = p.ComandaId,
+                QtdeProduto = p.QtdeProduto,
+                ValorPedido = p.ValorPedido,
+                StatusPedidoEnum = p.StatusPedidoEnum
+            }).ToList();
+
             return res;
+
+        }
+
+        public async Task<StatusPedidoEnum> CancelarPedido(int comandaId, int pedidoId)
+        {
+            var comanda = await _contexto
+                .Comanda
+                .Where(c => comandaId == c.ComandaId)
+                .Include(c => c.Pedidos)
+                .FirstOrDefaultAsync();
+            _ = comanda ?? throw new Exception("Comanda inexistente");
+
+            var pedido = comanda.Pedidos
+                .Where(p => p.PedidoId == pedidoId && p.StatusPedidoEnum != StatusPedidoEnum.Cancelado)
+                .FirstOrDefault();
+
+            _ = pedido ?? throw new Exception("Pedido inválido.");
+
+            if (pedido.ProdutoId == PRODUTO_RODIZIO)
+                throw new Exception("O rodizio não pode ser cancelado!");
+
+            pedido.StatusPedidoEnum = StatusPedidoEnum.Cancelado;
+
+            if (pedido.ValorPedido > 0)
+            {
+                comanda.Valor -= pedido.ValorPedido;
+            }
+
+            await _contexto.SaveChangesAsync();
+
+            return pedido.StatusPedidoEnum;
         }
     }
 }
