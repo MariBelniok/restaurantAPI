@@ -20,6 +20,7 @@ namespace RestauranteDominio
         public int MesaId { get; set; } //FK
         [ForeignKey("MesaId")]
         public Mesa Mesa { get; set; }
+        public bool? Cancelada { get; set; }
 
         public Comanda()
         {

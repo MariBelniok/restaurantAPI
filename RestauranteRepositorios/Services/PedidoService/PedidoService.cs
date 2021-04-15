@@ -93,7 +93,7 @@ namespace RestauranteRepositorios.Services
             return pedido.PedidoId;
         }
 
-        public async Task<BuscarModel> AtualizarPedido(AtualizarModel model)
+        public async Task<BuscarModel> AtualizarPedido(AtualizarModel model, int comandaId)
         {
             if (model.ProdutoId == PRODUTO_RODIZIO)
                 throw new Exception("O rodizio não pode ser editado!");
@@ -104,7 +104,7 @@ namespace RestauranteRepositorios.Services
 
             var comanda = await _contexto
                 .Comanda
-                .Where(c => model.ComandaId == c.ComandaId)
+                .Where(c => comandaId == c.ComandaId)
                 .Include(c => c.Pedidos)
                 .FirstOrDefaultAsync();
             _ = comanda ?? throw new Exception("Comanda inexistente");

@@ -52,7 +52,8 @@ namespace RestauranteRepositorios.Services
                    comanda.ComandaPaga,
                    comanda.QtdePessoasMesa,
                    comanda.Mesa,
-                   comanda.Pedidos
+                   comanda.Pedidos,
+                   comanda.Cancelada
                }).OrderByDescending(c => c.ComandaId).FirstOrDefaultAsync();
 
             _ = comanda ?? throw new Exception("Comanda inexistente!");
@@ -65,6 +66,7 @@ namespace RestauranteRepositorios.Services
                 Valor = comanda.Valor,
                 ComandaPaga = comanda.ComandaPaga,
                 QtdePessoasMesa = comanda.QtdePessoasMesa,
+                Cancelada = comanda.Cancelada,
                 Mesa = new Completa
                 {
                     MesaId = comanda.MesaId,
@@ -110,8 +112,9 @@ namespace RestauranteRepositorios.Services
             await _mesaService.DesocuparMesa(comanda.MesaId);
 
             comanda.DataHoraSaida = DateTime.Now;
-            comanda.ComandaPaga = true;
+            comanda.ComandaPaga = false;
             comanda.Valor = 0;
+            comanda.Cancelada = true;
 
             await _contexto.SaveChangesAsync();
 
@@ -124,6 +127,7 @@ namespace RestauranteRepositorios.Services
                 Valor = comanda.Valor,
                 ComandaPaga = comanda.ComandaPaga,
                 QtdePessoasMesa = comanda.QtdePessoasMesa,
+                Cancelada = comanda.Cancelada,
                 Mesa = new Completa
                 {
                     MesaId = comanda.MesaId,

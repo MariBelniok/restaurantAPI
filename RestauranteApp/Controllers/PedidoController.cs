@@ -32,9 +32,9 @@ namespace RestauranteApp.Controllers
         }
 
         [HttpPut("comanda/{comandaId}/[controller]/{pedidoId}")]
-        public async Task<BuscarModel> PutAtualizar(AtualizarModel model)
+        public async Task<BuscarModel> PutAtualizar(AtualizarModel model, int comandaId)
         {
-            return await _service.AtualizarPedido(model);
+            return await _service.AtualizarPedido(model, comandaId);
         }
 
         [HttpDelete("comanda/{comandaId}/[controller]/{pedidoId}")]

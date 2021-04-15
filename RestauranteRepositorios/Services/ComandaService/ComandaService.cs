@@ -41,6 +41,7 @@ namespace RestauranteRepositorios.Services
                 QtdePessoasMesa = model.QtdePessoasMesa,
                 Valor = valorTotalPedido,
                 MesaId = model.MesaId,
+                Cancelada = false
             };
 
             comanda.Pedidos.Add(new Pedido()
@@ -86,6 +87,7 @@ namespace RestauranteRepositorios.Services
                 Valor = comanda.Valor,
                 ComandaPaga = comanda.ComandaPaga,
                 QtdePessoasMesa = comanda.QtdePessoasMesa,
+                Cancelada = comanda.Cancelada
             };
 
             res.Pedidos = comanda.Pedidos.Select(p => new BuscarModel
@@ -112,21 +114,22 @@ namespace RestauranteRepositorios.Services
 
         public async Task<AndamentoModel> BuscarComandaAberta(int comandaId)
         {
-             var comanda = await _contexto
-                .Comanda
-                .Where(c => c.ComandaId == comandaId)
-                .Include(c => c.Pedidos)
-                .ThenInclude(p => p.Produto)
-                .Select(comanda => new 
-                {
-                    comanda.ComandaId,
-                    comanda.MesaId,
-                    comanda.DataHoraEntrada,
-                    comanda.Valor,
-                    comanda.ComandaPaga,
-                    comanda.QtdePessoasMesa,
-                    comanda.Pedidos
-                }).OrderBy(c => c.ComandaId).FirstOrDefaultAsync();
+            var comanda = await _contexto
+               .Comanda
+               .Where(c => c.ComandaId == comandaId)
+               .Include(c => c.Pedidos)
+               .ThenInclude(p => p.Produto)
+               .Select(comanda => new
+               {
+                   comanda.ComandaId,
+                   comanda.MesaId,
+                   comanda.DataHoraEntrada,
+                   comanda.Valor,
+                   comanda.ComandaPaga,
+                   comanda.QtdePessoasMesa,
+                   comanda.Cancelada,
+                   comanda.Pedidos
+               }).OrderBy(c => c.ComandaId).FirstOrDefaultAsync();
 
             _ = comanda ?? throw new Exception("Comanda inexistente!");
 
@@ -138,6 +141,7 @@ namespace RestauranteRepositorios.Services
                 Valor = comanda.Valor,
                 ComandaPaga = comanda.ComandaPaga,
                 QtdePessoasMesa = comanda.QtdePessoasMesa,
+                Cancelada = comanda.Cancelada
             };
 
             res.Pedidos = comanda.Pedidos.Select(p => new BuscarModel {

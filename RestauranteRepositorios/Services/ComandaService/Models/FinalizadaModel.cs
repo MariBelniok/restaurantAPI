@@ -13,5 +13,6 @@ namespace RestauranteRepositorios.Services
         public bool ComandaPaga { get; set; }
         public int QtdePessoasMesa { get; set; }
         public ICollection<BuscarModel> Pedidos { get; set; }
+        public bool? Cancelada { get; set; }
     }
 }
