@@ -112,7 +112,6 @@ namespace RestauranteRepositorios.Services
             await _mesaService.DesocuparMesa(comanda.MesaId);
 
             comanda.DataHoraSaida = DateTime.Now;
-            comanda.ComandaPaga = false;
             comanda.Valor = 0;
             comanda.Cancelada = true;
 
